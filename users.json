@@ -1,0 +1,20 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$PFPAq3VavYjMNowA6TPjbD$QdmUlB6jzbLBrQuhidku/OCcoOFgSbj/E465Bi21fkQ=",
+        "last_login": "2022-03-31T14:01:56.725Z",
+        "is_superuser": true,
+        "username": "Sam",
+        "first_name": "",
+        "last_name": "",
+        "email": "rasengankid999@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-11-05T03:05:09.315Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

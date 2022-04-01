@@ -1,0 +1,224 @@
+{% extends 'frontendbase.html' %}
+{% load static %}
+{% block title %}
+<title>VanezStore | Store</title>
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+
+<div style="font-family: Poppins-Medium;" class="bg0 m-t-23 mt-5 p-b-140">
+
+	<div class="container">
+
+		<div class="row mb-5">
+
+			<!--Product lISTS-->
+			<div class="col-md-9 order-2">
+
+				<div class="row">
+					<div class="col-md-12 mb-5">
+						<div class="float-md-left mb-4">
+							<h2 class="text-black h5">Shop All</h2>
+						</div>
+
+					</div>
+				</div>
+
+				<!--Products By Filter-->
+				<div class="row" id="filteredProducts">
+
+					<p class="ajaxLoader">Loading...</p>
+					{% for i in products %}
+					<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
+						<div class="block-4 text-center border">
+							<figure class="block-4-image">
+								<a href="shop-single.html"><img src="{{i.thumbnail}}" alt="Image placeholder"
+										class="img-fluid"></a>
+							</figure>
+							<div class="block-4-text p-4">
+								<strong>{{i.title}}</strong>
+								<p class="mb-0">{{i.description}}</p>
+								<p class="text-muted ">${{i.price}}</p>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+
+				</div>
+
+				<!--Load More-->
+				<p class="mt-5 d-flex justify-content-center ">
+					<button id="loadMore" data-total="{{totalproducts}}" data-limit="{{limitedproducts}}"
+						class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">Load
+						More
+						<i class="fa fa-sync load-more-icon"></i></button>
+				</p>
+
+
+			</div>
+
+			<!--Product Filtering Sidebar-->
+			<div class="col-md-3 order-1 mb-5 mb-md-0">
+
+				<!--Categories-->
+				<div class="border p-4 rounded mb-4">
+					<h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
+
+					{% for i in categories %}
+					<label for="s_sm" class="d-flex">
+						<input data-filter="category" value="{{i.id}}" class="filter-checkbox mr-2 mt-1"
+							type="checkbox">
+						<span class="text-black">{{i}}
+							(2,319)</span>
+					</label>
+					{% endfor %}
+
+
+				</div>
+
+				<div class="border p-4 rounded mb-4">
+
+
+					<div class="mb-4">
+						<h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
+						<!--Slider-->
+
+						<input id="rangeInput" type="range" value="{{minMaxPrice.price__min}}"
+							max={{minMaxPrice.price__max}} min={{minMaxPrice.price__min}}
+							oninput="maxPrice.value=this.value" />
+						<p>{{minMaxPrice.price__min}}-{{minMaxPrice.price__max}}</p>
+
+						<li class="list-group-item">
+
+							Max: <input id="maxPrice" type="number" value="{{minMaxPrice.price__min}}"
+								max={{minMaxPrice.price__max}} min={{minMaxPrice.price__min}} class="form-control"
+								onkeyup="rangeInput.value=this.value" disabled />
+
+							<button id="priceFilterBtn"
+								class="cl0 bg3 bor2 hov-btn3 p-lr-15 trans-04 mt-3 mb-2">Filter</button>
+						</li>
+
+					</div>
+
+					<!--Sizes-->
+					<div class="mb-4">
+						<h3 class="mb-3 h6 text-uppercase text-black d-block">Size</h3>
+						{% for i in sizes %}
+						<label for="s_sm" class="d-flex">
+							<input data-filter="size" value="{{i.id}}" class="filter-checkbox mr-2 mt-1"
+								type="checkbox">
+							<span class="text-black">{{i}}
+								(2,319)</span>
+						</label>
+						{% endfor %}
+
+					</div>
+
+
+					<!--Color-->
+					<div class="mb-4">
+						<h3 class="mb-3 h6 text-uppercase text-black d-block">Color</h3>
+						{% for i in colors %}
+						<label for="s_sm" class="d-flex">
+							<input data-filter="color" value="{{i.id}}" class="filter-checkbox mr-2 mt-1"
+								type="checkbox">
+							<span class="text-black">{{i}}
+								(2,319)</span>
+						</label>
+						{% endfor %}
+
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+	$(document).ready(function () {
+		$(".ajaxLoader").hide();
+
+		//Select all the input fields with filter-checkbox class
+		$('.filter-checkbox,#priceFilterBtn').on('click', function () {
+
+			let filterObj = {};
+
+			var _minPrice = $('#maxPrice').attr('min');
+			var _maxPrice = $('#maxPrice').val();
+			filterObj.minPrice = _minPrice;
+			filterObj.maxPrice = _maxPrice
+
+			$(".filter-checkbox").each(function (index, elem) {
+				let filterVal = $(this).val(); //value="id"
+				let filterKey = $(this).data('filter'); //data-filter="color" or  "category"
+				console.log(filterKey)
+
+				//Construct array from all the input filed that are checked applying map()
+				filterObj[filterKey] = Array.from(document.querySelectorAll('input[data-filter=' + filterKey + ']:checked')).map(function (el) {
+					return el.value;
+				});
+
+			});
+			console.log('ArrayObj:', filterObj)
+
+
+			//Initiate Ajax
+			$.ajax({
+				url: "{% url 'Clothes:products-filter-json-view' %}",
+				data: filterObj,
+				method: 'get',
+				dataType: 'json',
+				beforeSend: function () {
+					$(".ajaxLoader").show();
+				},
+				success: function (response) {
+					console.log(response);
+
+					$("#filteredProducts").html(response.products);
+					console.log($("#filteredProducts"))
+					$(".ajaxLoader").hide();
+				}
+			});
+
+
+			// Filter Product According to the price
+			$("#maxPrice").on('blur', function () {
+				var _min = $(this).attr('min');
+				var _max = $(this).attr('max');
+				var _value = $(this).val();
+				console.log(_value, _min, _max);
+				if (_value < parseInt(_min) || _value > parseInt(_max)) {
+					alert('Values should be ' + _min + '-' + _max);
+					$(this).val(_min);
+					$(this).focus();
+					$("#rangeInput").val(_min);
+					return false;
+				}
+			});
+
+		})
+
+
+	})
+
+
+</script>
+
+<script src="{%  static 'js/extras.js' %}"></script>
+{% endblock %}

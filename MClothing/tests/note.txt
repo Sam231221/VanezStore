@@ -1,0 +1,8 @@
+To run test file inside folder,It must have __init__.py and folder name should
+be 'tests'.
+cmd  -> py manage.py test
+
+If coverage is installed
+cmd  -> coverage run manage.py test
+
+ coverage report

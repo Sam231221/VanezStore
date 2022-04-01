@@ -1,0 +1,145 @@
+{% load static %}
+<div class="modal" id="productDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" id="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container p-5">
+                    <div class="row gx-5">
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="row">
+                                <div class="col">
+                                    <img id="featured">
+
+                                    <div id="slide-wrapper">
+                                        <img id="slideLeft" class="arrow" src="{% static 'images/arrow-left.png' %}">
+
+                                        <div id="img-gallery"></div>
+
+                                        <img id="slideRight" class="arrow" src="{% static 'images/arrow-right.png' %}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Detail View-->
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="">
+                                <h4 id="product-title" class="mtext-105 cl2 js-name-detail p-b-14">
+
+                                </h4>
+
+                                <span id="product-price" class="mtext-106 cl2">
+
+                                </span>
+
+                                <p id="product-description" class="stext-102 cl3 p-t-23"></p>
+
+                                <div class="p-t-33">
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-203 flex-c-m respon6">
+                                            Size
+                                        </div>
+
+                                        <div class="size-204 respon6-next">
+                                            <div class="rs1-select2 bor8 bg0">
+                                                <select class="js-select2" name="time">
+                                                    <option>Choose an option</option>
+                                                    <option>Size S</option>
+                                                    <option>Size M</option>
+                                                    <option>Size L</option>
+                                                    <option>Size XL</option>
+                                                </select>
+                                                <div class="dropDownSelect2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-203 flex-c-m respon6">
+                                            Color
+                                        </div>
+
+                                        <div class="size-204 respon6-next">
+                                            <div class="rs1-select2 bor8 bg0">
+                                                <select class="js-select2" name="time">
+                                                    <option>Choose an option</option>
+                                                    <option>Red</option>
+                                                    <option>Blue</option>
+                                                    <option>White</option>
+                                                    <option>Grey</option>
+                                                </select>
+                                                <div class="dropDownSelect2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex-w flex-r-m p-b-10">
+                                        <div class="size-204 flex-w flex-m respon6-next">
+
+                                            <div class="wrap-num-product flex-w m-l-auto mb-3 mx-5">
+
+                                                <div id="btn-num-product-down"
+                                                    class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                    <i class="fs-16 zmdi zmdi-minus"></i>
+                                                </div>
+
+                                                <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                                    name="num-product1" id="product-quantity" value="1">
+
+                                                <div id="btn-num-product-up"
+                                                    class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                    <i class="fs-16 zmdi zmdi-plus"></i>
+                                                </div>
+                                            </div>
+
+                                            <button id="product-add-btn"
+                                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                                Add to cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--Social Icons-->
+                                <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                                    <div class="flex-m bor9 p-r-10 m-r-11">
+                                        <a href="#"
+                                            class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                                            data-tooltip="Add to Wishlist">
+                                            <i class="zmdi zmdi-favorite"></i>
+                                        </a>
+                                    </div>
+
+                                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                                        data-tooltip="Facebook">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+
+                                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                                        data-tooltip="Twitter">
+                                        <i class="fa fa-twitter"></i>
+                                    </a>
+
+                                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                                        data-tooltip="Google Plus">
+                                        <i class="fa fa-google-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
