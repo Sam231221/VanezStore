@@ -15,7 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic', # new
+
     'django.contrib.staticfiles',
     
     'MClothing.apps.MclothingConfig',
@@ -105,6 +105,6 @@ MEDIA_ROOT =os.path.join(BASE_DIR, 'staticfiles/mediafiles')
 
 
 #WHITENOISE CONFIGURATION
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
