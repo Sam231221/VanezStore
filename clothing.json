@@ -1,0 +1,706 @@
+[
+{
+    "model": "MClothing.category",
+    "pk": 2,
+    "fields": {
+        "name": "Men",
+        "slug": null
+    }
+},
+{
+    "model": "MClothing.category",
+    "pk": 3,
+    "fields": {
+        "name": "Women",
+        "slug": null
+    }
+},
+{
+    "model": "MClothing.category",
+    "pk": 4,
+    "fields": {
+        "name": "Watches",
+        "slug": null
+    }
+},
+{
+    "model": "MClothing.category",
+    "pk": 5,
+    "fields": {
+        "name": "Bags",
+        "slug": null
+    }
+},
+{
+    "model": "MClothing.category",
+    "pk": 6,
+    "fields": {
+        "name": "Shoes",
+        "slug": null
+    }
+},
+{
+    "model": "MClothing.category",
+    "pk": 7,
+    "fields": {
+        "name": "Kids",
+        "slug": null
+    }
+},
+{
+    "model": "MClothing.size",
+    "pk": 1,
+    "fields": {
+        "name": "Size S",
+        "slug": "size-s"
+    }
+},
+{
+    "model": "MClothing.size",
+    "pk": 2,
+    "fields": {
+        "name": "Size M",
+        "slug": "size-m"
+    }
+},
+{
+    "model": "MClothing.size",
+    "pk": 3,
+    "fields": {
+        "name": "Size L",
+        "slug": "size-l"
+    }
+},
+{
+    "model": "MClothing.size",
+    "pk": 4,
+    "fields": {
+        "name": "Size XL",
+        "slug": "size-xl"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 1,
+    "fields": {
+        "name": "Black",
+        "slug": "black",
+        "color_code": "#000000"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 2,
+    "fields": {
+        "name": "Green",
+        "slug": "green",
+        "color_code": "#00d100"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 3,
+    "fields": {
+        "name": "Blue",
+        "slug": "blue",
+        "color_code": "#0000d1"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 4,
+    "fields": {
+        "name": "Red",
+        "slug": "red",
+        "color_code": "#d10000"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 5,
+    "fields": {
+        "name": "Yellow",
+        "slug": "yellow",
+        "color_code": "#ffff52"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 6,
+    "fields": {
+        "name": "Brown",
+        "slug": "brown",
+        "color_code": "#570000"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 7,
+    "fields": {
+        "name": "Purple",
+        "slug": "purple",
+        "color_code": "#bd40de"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 8,
+    "fields": {
+        "name": "Pink",
+        "slug": "pink",
+        "color_code": "#ffbdde"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 9,
+    "fields": {
+        "name": "SkyBlue",
+        "slug": "skyblue",
+        "color_code": "#52ffff"
+    }
+},
+{
+    "model": "MClothing.color",
+    "pk": 10,
+    "fields": {
+        "name": "Gray",
+        "slug": "gray",
+        "color_code": "#a8a8a8"
+    }
+},
+{
+    "model": "MClothing.customer",
+    "pk": 1,
+    "fields": {
+        "name": "Sam",
+        "email": "samirshahi9882@gmail.com",
+        "code": "5A1HSPYEYS4VPB00",
+        "publish_date": "2021-11-07",
+        "last_updated": "2021-11-07T13:41:59Z"
+    }
+},
+{
+    "model": "MClothing.customer",
+    "pk": 2,
+    "fields": {
+        "name": "Samara",
+        "email": null,
+        "code": "MH40JHQ40GXJVJHP",
+        "publish_date": "2021-11-07",
+        "last_updated": "2021-11-07T13:41:59.323Z"
+    }
+},
+{
+    "model": "MClothing.customer",
+    "pk": 3,
+    "fields": {
+        "name": "Exkchya",
+        "email": null,
+        "code": "KCPM9DS4WSS84TDA",
+        "publish_date": "2021-11-07",
+        "last_updated": "2021-11-07T13:41:59.323Z"
+    }
+},
+{
+    "model": "MClothing.customer",
+    "pk": 4,
+    "fields": {
+        "name": "Sambhav",
+        "email": null,
+        "code": "SMCYV4S0THDE2G33",
+        "publish_date": "2021-11-07",
+        "last_updated": "2021-11-07T13:41:59.323Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 8,
+    "fields": {
+        "category": 2,
+        "title": "Esprit Ruffle ShirtPant Pairs",
+        "author": 1,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648044862/VanezStore/product1_gypgoa.jpg",
+        "slug": "esprit-ruffle-shirtpant-pairs",
+        "product_code": "C27M3P4XHKSCWDRM",
+        "price": "33.00",
+        "color": 1,
+        "size": 4,
+        "is_featured": true,
+        "is_active": true,
+        "published_on": "2021-11-08T13:22:38.049Z",
+        "updated_on": "2022-04-01T13:15:56.684Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 9,
+    "fields": {
+        "category": 3,
+        "title": "Female Summer Shirt Pants",
+        "author": 1,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648045072/VanezStore/Product2/product2_arrm50.jpg",
+        "slug": "female-summer-shirt-pants",
+        "product_code": "FVT98G6K8FBK0K81",
+        "price": "23.00",
+        "color": 1,
+        "size": 3,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2021-11-08T13:24:49.426Z",
+        "updated_on": "2022-04-01T07:53:33.239Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 10,
+    "fields": {
+        "category": 2,
+        "title": "Gents T-shirt",
+        "author": 4,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648780247/VanezStore/Product4/product-03_zbqukj.jpg",
+        "slug": "gents-t-shirt",
+        "product_code": "879A59TN4TG320J4",
+        "price": "23.00",
+        "color": 9,
+        "size": 2,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T02:21:14.570Z",
+        "updated_on": "2022-04-08T04:32:55.029Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 11,
+    "fields": {
+        "category": 3,
+        "title": "Women's Cap-Sleeve Faux-Wrap Dress",
+        "author": 2,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648780729/VanezStore/Product5/femaleblack4_ewuqaf.jpg",
+        "slug": "womens-cap-sleeve-faux-wrap-dress",
+        "product_code": "PS9615EMZD3D055X",
+        "price": "30.00",
+        "color": 1,
+        "size": 2,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T02:40:24.697Z",
+        "updated_on": "2022-04-01T07:51:22.411Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 12,
+    "fields": {
+        "category": 2,
+        "title": "Poplin Chambray Button-Down Shirt",
+        "author": 2,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781271/VanezStore/Product6/gentblue1_rskauk.jpg",
+        "slug": "poplin-chambray-button-down-shirt",
+        "product_code": "DG36EVWCX9BH7YM0",
+        "price": "20.00",
+        "color": 3,
+        "size": 2,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T02:48:33.551Z",
+        "updated_on": "2022-04-01T07:52:42.595Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 13,
+    "fields": {
+        "category": 3,
+        "title": "Goodthreads Women's Georgette Smock-Back Cami Maxi",
+        "author": 3,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781416/VanezStore/Product3/femalered5_nxkjhv.jpg",
+        "slug": "goodthreads-womens-georgette-smock-back-cami-maxi",
+        "product_code": "E6S7BCN6JQ92JHFR",
+        "price": "30.00",
+        "color": 4,
+        "size": 4,
+        "is_featured": true,
+        "is_active": true,
+        "published_on": "2022-04-01T02:51:23.402Z",
+        "updated_on": "2022-04-01T13:15:46.224Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 14,
+    "fields": {
+        "category": 3,
+        "title": "Relaxed-Fit Crewneck T-Shirt Dress",
+        "author": 2,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782133/VanezStore/Product8/femalegreen1_ms6i0r.jpg",
+        "slug": "relaxed-fit-crewneck-t-shirt-dress",
+        "product_code": "23N1CE03Q5JCSYTX",
+        "price": "35.00",
+        "color": 2,
+        "size": 2,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T03:03:12.664Z",
+        "updated_on": "2022-04-01T07:52:17.762Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 15,
+    "fields": {
+        "category": 3,
+        "title": "Sleeve Wrap Dress Pair",
+        "author": 2,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782415/VanezStore/Product9/woemnyellow1_ufvhrq.jpg",
+        "slug": "sleeve-wrap-dress-pair",
+        "product_code": "VZ9J74S8YCQ44D6R",
+        "price": "23.00",
+        "color": 5,
+        "size": 3,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T03:07:29.592Z",
+        "updated_on": "2022-04-01T07:52:05.885Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 16,
+    "fields": {
+        "category": 3,
+        "title": "Stelle Girls Ballet Dance Shoes Slippers",
+        "author": 2,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782602/VanezStore/Product7/shoes1_jo3maa.jpg",
+        "slug": "stelle-girls-ballet-dance-shoes-slippers",
+        "product_code": "TQ5RNT0YHTT7A3FD",
+        "price": "34.00",
+        "color": 8,
+        "size": 1,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T03:11:03.028Z",
+        "updated_on": "2022-04-01T07:51:52.176Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 17,
+    "fields": {
+        "category": 6,
+        "title": "Eco Skate Shoe",
+        "author": 1,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782825/VanezStore/Product10/shoesmale4_ksrdir.jpg",
+        "slug": "eco-skate-shoe",
+        "product_code": "FA9GF4DEJA1TVVP1",
+        "price": "28.00",
+        "color": 10,
+        "size": 1,
+        "is_featured": true,
+        "is_active": true,
+        "published_on": "2022-04-01T03:15:50.533Z",
+        "updated_on": "2022-04-08T04:33:14.807Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 18,
+    "fields": {
+        "category": 4,
+        "title": "Garmin Venu, GPS Smartwatch",
+        "author": 1,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648783756/VanezStore/Product11/watch1_qvegxq.jpg",
+        "slug": "garmin-venu-gps-smartwatch",
+        "product_code": "M7SXZQB83WW0BNSQ",
+        "price": "32.00",
+        "color": 1,
+        "size": 2,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T03:30:17.672Z",
+        "updated_on": "2022-04-01T07:53:15.300Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 19,
+    "fields": {
+        "category": 4,
+        "title": "Apple Watch Series 3 (GPS, 42mm) - Silver Aluminum",
+        "author": 1,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648783995/VanezStore/Product12/watchmen1_tyuvdc.jpg",
+        "slug": "apple-watch-series-3-gps-42mm-silver-aluminum",
+        "product_code": "X2DEAJSQYEFGEK1T",
+        "price": "52.00",
+        "color": 2,
+        "size": 2,
+        "is_featured": true,
+        "is_active": true,
+        "published_on": "2022-04-01T03:34:53.514Z",
+        "updated_on": "2022-04-01T13:16:20.819Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 20,
+    "fields": {
+        "category": 2,
+        "title": "Columbia Men's Pike Lake Jacket",
+        "author": 3,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648784288/VanezStore/Prodcut13/menjacketgreen1_rhfkr3.jpg",
+        "slug": "columbia-mens-pike-lake-jacket",
+        "product_code": "DYDSNWJCZPSP21ZD",
+        "price": "43.00",
+        "color": 2,
+        "size": 3,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T03:38:30.811Z",
+        "updated_on": "2022-04-01T07:54:03.664Z"
+    }
+},
+{
+    "model": "MClothing.product",
+    "pk": 21,
+    "fields": {
+        "category": 2,
+        "title": "Weatherproof Jacket Winter",
+        "author": 1,
+        "description": "",
+        "thumbnail": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648784435/VanezStore/Product14/menskyblue1_si39pn.jpg",
+        "slug": "weatherproof-jacket-winter",
+        "product_code": "HZ3W3DBN6KGA37DX",
+        "price": "68.00",
+        "color": 9,
+        "size": 4,
+        "is_featured": false,
+        "is_active": true,
+        "published_on": "2022-04-01T03:41:58.600Z",
+        "updated_on": "2022-04-01T07:51:31.772Z"
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 1,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648045072/VanezStore/Product2/product2-detail1_cvlyxl.jpg",
+        "product": 9
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 2,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648045072/VanezStore/Product2/product2-detail2_vgmyco.jpg",
+        "product": 9
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 3,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648044860/VanezStore/product1-detail-01_jw42ni.jpg",
+        "product": 8
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 4,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648044862/VanezStore/product1-detail-03_onln6n.jpg",
+        "product": 8
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 5,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648045329/VanezStore/product-detail-02_tdtqe3.jpg",
+        "product": 8
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 6,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648780730/VanezStore/Product5/femaleblack3_fkimhh.jpg",
+        "product": 11
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 7,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648780730/VanezStore/Product5/femaleblack2_yfea4d.jpg",
+        "product": 11
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 8,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648780730/VanezStore/Product5/femaleblack1_hiinnv.jpg",
+        "product": 11
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 9,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781271/VanezStore/Product6/gentblue2_vrsvb8.jpg",
+        "product": 12
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 10,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781271/VanezStore/Product6/gentblue3_thwuuw.jpg",
+        "product": 12
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 11,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781416/VanezStore/Product3/femalered4_xvywje.jpg",
+        "product": 13
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 12,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781416/VanezStore/Product3/femalered3_e5otwe.jpg",
+        "product": 13
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 13,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781417/VanezStore/Product3/femalered1_illzzd.jpg",
+        "product": 13
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 14,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648781417/VanezStore/Product3/femalered2_femqlk.jpg",
+        "product": 13
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 15,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782133/VanezStore/Product8/femalegreen2_fwqb8u.jpg",
+        "product": 14
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 16,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782132/VanezStore/Product8/femalegreen3_t9omlg.jpg",
+        "product": 14
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 17,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782132/VanezStore/Product8/femalegreen4_bqubcd.jpg",
+        "product": 14
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 18,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782415/VanezStore/Product9/womenyellow2_zdgfqb.jpg",
+        "product": 15
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 19,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782827/VanezStore/Product10/shoesmale1_itgudf.jpg",
+        "product": 17
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 20,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782826/VanezStore/Product10/shoesmale2_upooa5.jpg",
+        "product": 17
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 21,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648782825/VanezStore/Product10/shoesmale3_soytsw.jpg",
+        "product": 17
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 22,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648783995/VanezStore/Product12/watchmen2_efaswi.jpg",
+        "product": 19
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 23,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648783994/VanezStore/Product12/watchmen3_opgo3y.jpg",
+        "product": 19
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 24,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648783993/VanezStore/Product12/watchmen4_daa8ug.jpg",
+        "product": 19
+    }
+},
+{
+    "model": "MClothing.imagealbum",
+    "pk": 25,
+    "fields": {
+        "image": "https://res.cloudinary.com/dcgrv6shk/image/upload/v1648784435/VanezStore/Product14/menskyblue2_o6mv4a.jpg",
+        "product": 21
+    }
+},
+{
+    "model": "MClothing.productreview",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "product": 11,
+        "review_text": "This is so good",
+        "review_rating": "4"
+    }
+}
+]

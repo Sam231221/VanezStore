@@ -56,14 +56,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'DVanezStore.wsgi.application'
 
 
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'cozastore',
+    'USER': 'postgres',
+    'PASSWORD': 'ProgrammerGodRobo123',
+    'HOST': 'localhost',
+    'PORT': '5432',
+    }
+}
 
+
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+'''
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -106,5 +118,4 @@ MEDIA_ROOT =os.path.join(BASE_DIR, 'staticfiles/mediafiles')
 
 #WHITENOISE CONFIGURATION
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
