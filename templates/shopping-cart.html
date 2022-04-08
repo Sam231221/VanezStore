@@ -1,7 +1,6 @@
 {% extends 'frontendbase.html' %}
-{% block title %}
-<title>VanesStore | Your Cart</title>
-{% endblock %}
+{% block title %}Shopping Cart{% endblock %}
+
 {% block head %}
 <!-- breadcrumb -->
 <div class="container">
@@ -21,41 +20,40 @@
 
 {% block body %}
 
-
 <br><br>
-
 <!-- Shoping Cart -->
-
 <div class="container">
     <div class="row">
 
         <div class="col-lg-8 col-sm-12  m-b-50">
-            <div class="m-l-25 m-r--38 ">
-                <div class="wrap-table-shopping-cart">
-                    <table class="table-shopping-cart">
-                        <tr class="table_head">
-                            <th class="column-1">Product</th>
-                            <th class="column-2"></th>
-                            <th class="column-3">Price</th>
-                            <th class="column-4">Quantity</th>
-                            <th class="column-5">Total</th>
-                            <th class="column-5">Action</th>
-                        </tr>
-                        {% if basket.get_cart_items == 0 %}
-                        <h1 class="mb-2"> No products added yet!</h1>
-                        {% else %}
-                        {% for item in basket %}
-                        {% with product=item.product %}
-                        <tr class=" table_row">
-                            <td class="column-1">
-                                <div class="how-itemcart1">
-                                    <img src="{{product.thumbnail}}" alt="IMG">
-                                </div>
-                            </td>
-                            <td class="column-2"> {{product.title}}</td>
-                            <td class="column-3"> ${{product.price}}</td>
-                            <td class="column-4">
-                                <div class="wrap-num-product flex-w m-l-auto m-r-0">
+            <div class="wrap-table-shopping-cart">
+                <table class="table-shopping-cart">
+                    <tr class="table_head">
+
+                        <th class="column-1">Img</th>
+                        <th class="column-2">Product</th>
+                        <th class="column-3">Price</th>
+                        <th class="column-4">Quantity</th>
+                        <th class="column-5">Total</th>
+                        <th class="column-5">Action</th>
+                    </tr>
+                    {% if basket.get_cart_items == 0 %}
+                    <h1 class="mb-2"> No products added yet!</h1>
+                    {% else %}
+                    {% for item in basket %}
+                    {% with product=item.product %}
+                    <tr class=" table_row">
+                        <td class="column-1">
+                            <div class="how-itemcart1">
+                                <img src="{{product.thumbnail}}" alt="IMG">
+                            </div>
+                        </td>
+                        <td class="column-2"> {{product.title}}</td>
+                        <td class="column-3"> ${{product.price}}</td>
+                        <td class="column-4">{{item.qty}}</td>
+                        <!--
+                                     <td class="column-4">
+                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
 
                                     <div id="btn-num-product-down"
                                         class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
@@ -70,20 +68,21 @@
                                         <i class="fs-16 zmdi zmdi-plus"></i>
                                     </div>
                                 </div>
-                            </td>
-                            <td class="column-5">${{item.total_price}}</td>
-                            <td class="column-5"><button prod-id="{{product.id}}" id="product-delete-btn"
-                                    class="btn btn-sm btn-danger product-delete-btn">Delete</button></td>
-                        </tr>
-                        {% endwith %}
-                        {% endfor %}
-                        {% endif %}
+                                   </td>
+-->
 
-                    </table>
-                </div>
+                        <td class="column-5">${{item.total_price}}</td>
+                        <td class="column-5"><button prod-id="{{product.id}}" id="product-delete-btn"
+                                class="btn btn-sm btn-danger product-delete-btn">Delete</button></td>
+                    </tr>
+                    {% endwith %}
+                    {% endfor %}
+                    {% endif %}
 
-
+                </table>
             </div>
+
+
         </div>
 
         <!--SideBar-->
@@ -107,7 +106,9 @@
                     </div>
                 </div>
 
-                <div class="flex-w flex-t p-t-27 p-b-33">
+                <!--
+
+                    <div class="flex-w flex-t p-t-27 p-b-33">
                     <div class="flex-w flex-m m-r-20 m-tb-5">
                         <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon"
                             placeholder="Coupon Code">
@@ -118,6 +119,7 @@
                     </div>
 
                 </div>
+-->
 
 
                 <div class="flex-w flex-t p-t-27 p-b-33">

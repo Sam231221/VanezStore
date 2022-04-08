@@ -399,7 +399,10 @@
     <script src="{% static 'js/slick-custom.js' %}"></script>
 
     <script src="{% static 'js/product-detail.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+
+    <!--contains main script-->
+    {% include 'utilities/mainpro.html' %}
+
     <script src="{% static 'vendor/parallax100/parallax100.js' %}"></script>
     <script>
         $('.parallax100').parallax100();
@@ -439,7 +442,7 @@
 
 
 
-    {% include 'main.html' %}
+    {% include 'utilities/main.html' %}
 
     {% block script %}
 

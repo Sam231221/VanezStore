@@ -1,0 +1,313 @@
+{% extends 'frontendbase.html' %}
+{% load static %}
+{% block title %} Products | {{i.title}} {% endblock %}
+{% block body %}
+
+<div class="container p-5">
+    <div class="row gx-5">
+
+        <div class="col-lg-6 col-sm-12">
+            <div class="row">
+                <div class="col">
+                    <img src="{{i.thumbnail}}" id="featured" alt="IMG-PRODUCT">
+
+                    <div id="slide-wrapper">
+                        <img id="slideLeft" class="arrow" src="{% static 'images/arrow-left.png' %}">
+
+                        <div id="img-gallery">
+                            {% for img in i.imagealbum_set.all %}
+                            <img class="thumbnail" src="{{img.image}}" alt="IMG-PRODUCT">
+                            {% endfor %}
+                        </div>
+
+                        <img id="slideRight" class="arrow" src="{% static 'images/arrow-right.png' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Detail View-->
+        <div class="col-lg-6 col-sm-12">
+            <div class="">
+                <h4 id="product-title" class="mtext-105 cl2 js-name-detail p-b-14">
+                    {{i.title}}
+                </h4>
+
+                <span id="product-price" class="text-muted cl2">
+                    ${{i.price}}
+                </span>
+                <!-- Ratings -->
+                <div class="mt-2 mb-2">
+
+                    <span class="my-3 text-muted">Ratings:<span class="avg-rating">{{avg_reviews.avg_rating}}</span>/5
+                        <i class="fa fa-star text-warning"></i>
+
+                        {% if user.is_authenticated %}
+                        {% if canAdd %}
+                        <button data-bs-toggle="modal" data-bs-target="#productReview" type="button"
+                            class="btn btn-warning btn-sm float-right reviewBtn">Add Review</button>
+                        {% endif %}
+                        {% endif %}
+                    </span>
+
+                    <!-- Product Form Review -->
+                    {% if user.is_authenticated %}
+                    <div class="modal fade" id="productReview" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Add Product Review</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="addForm"
+                                        action="{% url 'Clothes:product-review-json-view' i.id %}">
+                                        {% csrf_token %}
+                                        <table class="table table-bordered">
+                                            {{reviewForm.as_table}}
+                                            <tr>
+                                                <td colspan="2">
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <input type="reset" class="btn btn-dark" value="Reset" id="reset" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p class="ajaxRes"></p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+
+                </div>
+                <p id="product-description" class="stext-102 cl3 p-t-23"></p>
+
+                <div class="p-t-7">
+                    <div class="flex-w flex-r-m p-b-10">
+                        <div class="size-203 flex-c-m respon6">
+                            Size
+                        </div>
+
+                        <div class="size-204 respon6-next">
+                            <div class="rs1-select2 bor8 bg0">
+                                <select class="js-select2" name="time">
+                                    <option>Choose an option</option>
+                                    <option>Size S</option>
+                                    <option>Size M</option>
+                                    <option>Size L</option>
+                                    <option>Size XL</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-w flex-r-m p-b-10">
+                        <div class="size-203 flex-c-m respon6">
+                            Color
+                        </div>
+
+                        <div class="size-204 respon6-next">
+                            <div class="rs1-select2 bor8 bg0">
+                                <select class="js-select2" name="time">
+                                    <option>Choose an option</option>
+                                    <option>Red</option>
+                                    <option>Blue</option>
+                                    <option>White</option>
+                                    <option>Grey</option>
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Quantity-->
+                    <div class="flex-w flex-r-m p-b-10">
+                        <div class="size-204 flex-w flex-m respon6-next">
+
+                            <div class="wrap-num-product flex-w m-l-auto mb-3 mx-5">
+
+                                <div id="btn-num-product-down"
+                                    class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                    <i class="fs-16 zmdi zmdi-minus"></i>
+                                </div>
+
+                                <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1"
+                                    id="product-quantity" value="1">
+
+                                <div id="btn-num-product-up" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                    <i class="fs-16 zmdi zmdi-plus"></i>
+                                </div>
+                            </div>
+
+                            <button id="product-add-btn" prod-code="{{i.product_code}}" prod-id="{{i.id}}"
+                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                Add to cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Product Reviews-->
+                <div class="card mt-4">
+                    <h3>Product Reviews</h3>
+                    <hr>
+                    <div class="card-body review-list">
+
+                        <!-- Detail -->
+                        {% if reviews %}
+                        {% for review in reviews %}
+                        <blockquote class="blockquote text-right">
+                            <small class="mb-2 mt-2">{{review.review_text}}</small>
+                            <footer class="blockquote-footer mt-3">By {{review.user}}
+                                <cite title="Source Title">
+                                    {% for star in review.review_rating|ljust:review.review_rating %}
+                                    <i class="fa fa-star text-warning"></i>
+                                    {% endfor %}
+                                </cite>
+                            </footer>
+                        </blockquote>
+                        <hr />
+                        {% endfor %}
+                        {% else %}
+                        <p class="no-data">Add First Review</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!--Social Icons-->
+                <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+                    <div class="flex-m bor9 p-r-10 m-r-11">
+                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                            data-tooltip="Add to Wishlist">
+                            <i class="zmdi zmdi-favorite"></i>
+                        </a>
+                    </div>
+
+                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                        data-tooltip="Facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+
+                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                        data-tooltip="Twitter">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+
+                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+                        data-tooltip="Google Plus">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        // Product Review Save
+        $("#addForm").submit(function (e) {
+            //serializing submiited data -> data: csrfmiddlewaretoken=eHXqDTIK2OwCAGxUbmo2Nhl4An01qJD5K8vxEgrVBeET1oM2fbulHXWOkeGOo4Lg&review_text=fsefs&review_rating=2
+            console.log('data:', $(this).serialize())
+            $.ajax({
+
+
+                data: $(this).serialize(),
+                method: 'post',
+                url: $(this).attr('action'),
+                dataType: 'json',
+                success: function (res) {
+                    if (res.bool == true) {
+                        $(".ajaxRes").html('Data has been added.');
+                        $("#reset").trigger('click');
+                        // Hide Button
+                        $(".reviewBtn").hide();
+                        // End
+
+                        // create data for review
+                        var _html = '<blockquote class="blockquote text-right">';
+                        _html += '<small>' + res.data.review_text + '</small>';
+                        _html += '<footer class="blockquote-footer">' + res.data.user;
+                        _html += '<cite title="Source Title">';
+                        for (var i = 1; i <= res.data.review_rating; i++) {
+                            _html += '<i class="fa fa-star text-warning"></i>';
+                        }
+                        _html += '</cite>';
+                        _html += '</footer>';
+                        _html += '</blockquote>';
+                        _html += '</hr>';
+
+                        $(".no-data").hide();
+
+                        // Prepend Data
+                        $(".review-list").prepend(_html);
+
+                        // Hide Modal
+                        $("#productReview").modal('hide');
+
+                        // AVg Rating
+                        $(".avg-rating").text(res.avg_reviews.avg_rating.toFixed(1))
+                    }
+                }
+            });
+
+            //prevent the default action of submit button i.e reloading after submit
+            e.preventDefault();
+        });
+
+
+
+
+        let thumbnails = document.getElementsByClassName('thumbnail')
+        let activeImages = document.getElementsByClassName('active')
+
+        for (var i = 0; i < thumbnails.length; i++) {
+
+            thumbnails[i].addEventListener('click', function () {
+                console.log(activeImages)
+
+                if (activeImages.length > 0) {
+                    activeImages[0].classList.remove('active')
+                }
+
+
+                this.classList.add('active')
+                document.getElementById('featured').src = this.src
+            })
+        }
+
+
+        let buttonRight = document.getElementById('slideRight');
+        let buttonLeft = document.getElementById('slideLeft');
+
+        buttonLeft.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft -= 180
+        })
+
+        buttonRight.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft += 180
+        })
+
+
+
+    })
+
+
+
+
+</script>
+{% endblock %}

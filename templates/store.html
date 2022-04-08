@@ -1,8 +1,8 @@
 {% extends 'frontendbase.html' %}
 {% load static %}
-{% block title %}
-<title>VanezStore | Store</title>
-{% endblock %}
+
+{% block title %}Store{% endblock %}
+
 
 {% block head %}
 {% endblock %}
@@ -167,7 +167,6 @@
 			$(".filter-checkbox").each(function (index, elem) {
 				let filterVal = $(this).val(); //value="id"
 				let filterKey = $(this).data('filter'); //data-filter="color" or  "category"
-				console.log(filterKey)
 
 				//Construct array from all the input filed that are checked applying map()
 				filterObj[filterKey] = Array.from(document.querySelectorAll('input[data-filter=' + filterKey + ']:checked')).map(function (el) {
@@ -175,7 +174,8 @@
 				});
 
 			});
-			console.log('ArrayObj:', filterObj)
+			console.log('filterObj:',filterObj)
+	
 
 
 			//Initiate Ajax
@@ -188,11 +188,17 @@
 					$(".ajaxLoader").show();
 				},
 				success: function (response) {
-					console.log(response);
-
-					$("#filteredProducts").html(response.products);
-					console.log($("#filteredProducts"))
-					$(".ajaxLoader").hide();
+					console.log(response)
+					console.log('\nhtml:',response.products)
+					if (response.products == ''){
+						console.log('tf')
+						$("#filteredProducts").html('<h4 style="text-align:center;color:red;">No Products found for this match.</h4>');
+						$(".ajaxLoader").hide();
+					}else{
+						$("#filteredProducts").html(response.products);
+						$(".ajaxLoader").hide();
+					}
+					
 				}
 			});
 

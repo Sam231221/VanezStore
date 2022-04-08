@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-*7vnz0p_b9=vjc6!w97*20=shvy$#klz2k+=+51y_7+l8!^&57
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cozastore123.herokuapp.com', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

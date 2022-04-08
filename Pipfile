@@ -7,6 +7,7 @@ name = "pypi"
 django = "==3.2.7"
 pillow = "==8.4.0"
 coverage = "==6.1.1"
+whitenoise = "==6.0.0"
 
 [dev-packages]
 
