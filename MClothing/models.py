@@ -14,6 +14,7 @@ MAX_TRIES = 32
 class Category(models.Model):
     name = models.CharField(max_length = 20,db_index=True, unique=True, null=True)
     slug = models.SlugField(max_length= 50, null=True, blank=True)
+    date_added = models.DateTimeField(null=True)
     
     class Meta:
         verbose_name_plural = 'Categories'
