@@ -400,7 +400,7 @@
 
     <script src="{% static 'js/product-detail.js' %}"></script>
 
-    <!--contains main script-->
+    <!----> main script-->
     {% include 'utilities/mainpro.html' %}
 
     <script src="{% static 'vendor/parallax100/parallax100.js' %}"></script>
@@ -409,9 +409,9 @@
     </script>
     <script src="{% static 'vendor/MagnificPopup/jquery.magnific-popup.min.js' %}"></script>
     <script>
-        $('.gallery-lb').each(function () { // the containers for all your galleries
+        $('.gallery-lb').each(function () {
             $(this).magnificPopup({
-                delegate: 'a', // the selector for gallery item
+                delegate: 'a', 
                 type: 'image',
                 gallery: {
                     enabled: true

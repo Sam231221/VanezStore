@@ -1,3 +1,5 @@
+'''
+
 from urllib import request
 
 basket.session = request.session
@@ -64,3 +66,6 @@ iter=self.session.get('skey')=[
 ]
 
 {'8': {'price': '33.00', 'qty': 1, 'title': 'Esprit Ruffle ShirtPant Pairs', 'thumbnail': 'https://res.cloudinary.com/dcgrv6shk/image/upload/v1648044862/VanezStore/product1_gypgoa.jpg'}, '9': {'price': '23.00', 'qty': 2, 'title': 'Esprit Ruffle ShirtPant Pairs', 'thumbnail': 'https://res.cloudinary.com/dcgrv6shk/image/upload/v1648044862/VanezStore/product1_gypgoa.jpg'}}
+
+
+'''

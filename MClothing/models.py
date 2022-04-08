@@ -1,7 +1,5 @@
 from random import randrange
-from turtle import color
 from django.utils import timezone
-from django.contrib import admin
 from django.db import models
 import datetime
 from django.urls import reverse
