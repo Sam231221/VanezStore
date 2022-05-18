@@ -1,9 +1,10 @@
+from multiprocessing import context
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from MClothing.models import Product
 from django.http.response import JsonResponse
 from MBasket.basket import Basket
-
+from .models import DeliveryOptions
 class Home(TemplateView):
     template_name = 'frontendbase.html'
     def get_context_data(self, **kwargs):
@@ -54,3 +55,11 @@ class UserCartView(View):
         basket = Basket(request)
         print('Total price:',basket.get_subtotal_price())
         return render(request, 'your-cart.html', {'basket': basket})
+
+
+class CheckoutView(View):
+    def get(self,request):
+        context={
+            'deliveryoptions':DeliveryOptions.objects.all()
+        }
+        return render(request, 'checkout.html', context)

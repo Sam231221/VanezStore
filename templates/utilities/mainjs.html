@@ -1,8 +1,7 @@
 <script>
-    $(document).ready(function () {
+    (function ($) {
         "use strict";
 
-        /*Load page */
         $(".animsition").animsition({
             inClass: 'fade-in',
             outClass: 'fade-out',
@@ -24,7 +23,9 @@
                 window.location.href = url;
             }
         });
-    })
+
+
+    })(jQuery);
 
     /*--------------------
     CSRF_TOKEN
