@@ -6,11 +6,6 @@ from MClothing.models import Product
 from .basket import Basket
 import json
 
-class UserCartView(View):
-    def get(self, request):
-        basket = Basket(request)
-        print('Total price:',basket.get_subtotal_price())
-        return render(request, 'shopping-cart.html', {'basket': basket})
 
 class BasketAddView(View):
     def post(self, request):
@@ -38,7 +33,6 @@ class BasketAddView(View):
                                  'basketsubtotal': basket.get_subtotal_price(),
                                  },
                                 safe=False)
-
 #Shopping Cart
 class BasketDeleteView(View):
     def post(self, request):

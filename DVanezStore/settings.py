@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     
     'MClothing.apps.MclothingConfig',
     'MBasket.apps.MbasketConfig',
+    'MEhub',
 ]
 
 MIDDLEWARE = [

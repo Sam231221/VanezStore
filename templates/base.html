@@ -72,7 +72,7 @@
                 <nav class="limiter-menu-desktop container">
 
                     <!-- Logo desktop -->
-                    <a href="{% url 'Clothes:home-view' %}" class="logo">
+                    <a href="{% url 'Ehub:home-view' %}" class="logo">
                         <img src="{% static 'images/icons/logo-01.png' %}" alt="IMG-LOGO">
                     </a>
 
@@ -80,7 +80,7 @@
                     <div class="menu-desktop">
                         <ul class="main-menu">
                             <li class="active-menu">
-                                <a href="{% url 'Clothes:home-view' %}">Home</a>
+                                <a href="{% url 'Ehub:home-view' %}">Home</a>
                             </li>
 
                             <li>
@@ -133,7 +133,7 @@
         <div class="wrap-header-mobile">
             <!-- Logo moblie -->
             <div class="logo-mobile">
-                <a href="{% url 'Clothes:home-view' %}" class="logo">
+                <a href="{% url 'Ehub:home-view' %}" class="logo">
                     <img src="{% static 'images/icons/logo-01.png' %}" alt="IMG-LOGO">
                 </a>
             </div>
@@ -208,7 +208,7 @@
             <!--Navbar-->
             <ul class="main-menu-m">
                 <li class="active-menu">
-                    <a href="{% url 'Clothes:home-view' %}">Home</a>
+                    <a href="{% url 'Ehub:home-view' %}">Home</a>
                 </li>
 
                 <li>
@@ -398,10 +398,9 @@
     <script src="{% static 'vendor/slick/slick.min.js' %}"></script>
     <script src="{% static 'js/slick-custom.js' %}"></script>
 
-    <script src="{% static 'js/product-detail.js' %}"></script>
 
-    <!----> main script-->
-    {% include 'utilities/mainpro.html' %}
+
+    {% include 'utilities/mainjs.html' %}
 
     <script src="{% static 'vendor/parallax100/parallax100.js' %}"></script>
     <script>
@@ -411,7 +410,7 @@
     <script>
         $('.gallery-lb').each(function () {
             $(this).magnificPopup({
-                delegate: 'a', 
+                delegate: 'a',
                 type: 'image',
                 gallery: {
                     enabled: true
@@ -442,7 +441,7 @@
 
 
 
-    {% include 'utilities/main.html' %}
+    {% include 'utilities/utilityjs.html' %}
 
     {% block script %}
 
