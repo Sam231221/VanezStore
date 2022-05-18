@@ -70,22 +70,7 @@
                 $("#spinner").addClass('visually-hidden');
             },
             success: function (response) {
-                console.log(response)
-                const data = response.queryset
-                if (Array.isArray(data)) {
-
-                    searchquery.innerHTML = " "  //start with empty
-                    data.forEach(keyword => {
-                        searchquery.innerHTML +=
-                            `<li class="mb-2 search-obj pt-3 pb-3 px-4"><a class="text-black" href="${keyword.url}" style="text-decoration:none;"><b>${keyword.title}</b></a></li> `
-                    })
-                } else {
-                    if (searchinput.value.length > 0) {
-                        searchquery.innerHTML = `<p  class="text-black pt-3 pb-3 px-4">${data}</p> `
-                    } else {
-                        searchquery.classList.add("invisible");
-                    }
-                }
+                console.log('thanks!')
             },
             error: function (error) {
                 console.log(error.data)
@@ -102,7 +87,7 @@
 
     const csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value
     searchinput.addEventListener("keyup", e => {
-       // console.log("printing", e.target.value)
+        // console.log("printing", e.target.value)
         if (searchquery.classList.contains('invisible')) {
             searchquery.classList.remove('invisible')
         }
@@ -258,6 +243,8 @@
 
 
     }));
+
+
 
 
 
