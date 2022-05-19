@@ -1,0 +1,68 @@
+.profile-cover{
+    width: 10rem;
+    height: 10rem;
+}
+.profile-sm-cover{
+    width: 3rem;
+    height: 3rem;
+}
+.row .profile-username p{
+    font-size: 1.5rem;
+    margin-bottom: 0px;
+    color: #282828;
+}
+.row .user-info p{
+    margin-left: .3rem;
+    display: inline;
+}
+
+.row .main-settings strong{
+    border: 1px solid #cbcbcb;
+    font-size: .7rem;
+    padding: .5rem;
+    color: black;
+}
+.row .main-settings i{
+    margin-left: .3rem;
+    background-color: black;
+}
+
+.row .sub-settings i{
+    margin-left: .3rem;
+ color: black;
+}
+.highlights .col-1 {
+    width: 10.333333%!important;
+}
+.highlights .col-1 .card{
+    border: none;
+}
+.highlights .col-1 .card img{
+    width: 70px;
+    object-fit: contain;
+    height: 70px;
+}
+.post-by-filter .col-2 span{
+       font-size: 13px!important;
+}
+.edit-options ul{
+    margin: 0rem;
+    padding: 0rem;
+    list-style-type: none;
+
+}
+.edit-options ul li{
+    padding: 1rem;
+    list-style-type: none;
+}
+.edit-options ul li:hover{
+    background-color: aliceblue;
+    cursor: pointer;
+    transition: all 1s ease-out;
+}
+.edit-options ul li a{
+    color: black;
+}
+.edit-form, .edit-options{
+    background-color: rgb(255,255, 255);
+}
