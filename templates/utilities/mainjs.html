@@ -27,10 +27,10 @@
 
     })(jQuery);
 
+
     /*--------------------
     CSRF_TOKEN
     ----------------------*/
-
     const getToken = (name) => {
         var cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -143,7 +143,6 @@
 
 
 
-
     /*--------------------
     SHOW PRODUCT DETAIL VIEW
     ----------------------*/
@@ -245,7 +244,7 @@
 
 
     /*---------------------------------
-    ADD/UPDATE PRODUCT IN MODAL FORM 
+        ADD/UPDATE PRODUCT IN MODAL FORM 
     ----------------------------------*/
     const productAddBtn = document.getElementById("product-add-btn")
     productAddBtn.addEventListener("click", (e) => {
@@ -287,7 +286,7 @@
                     cartDiv[i].setAttribute('data-notify', response.basketqty)
                 }
                 const headerCartTotal = document.getElementById('header-cart-total')
-                headerCartTotal.innerHTML = "Total: $" + response.basketsubtotal
+                headerCartTotal.innerHTML = "Total: Rs " + response.basketsubtotal
 
                 const headerCart = document.getElementById('header-cart')
                 let outputhtml = ''
@@ -318,7 +317,212 @@
     })
 
 
+    /*---------------------------------
+        DELETE PRODUCT IN CART PAGE 
+    ----------------------------------*/
 
+    $('.product-delete-btn').on('click', function () {
+        output = " ";
+        console.log('fine')
+        const getToken = (name) => {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(
+                            name.length += 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        let csrftoken = getToken('csrftoken');
+
+        let fdata = {
+            "prod_id": $(this).attr('prod-id'),
+            'csrfmiddlewaretoken': csrftoken
+        }
+        mythis = this;
+        console.log(fdata)
+        $.ajax({
+            url: "{% url 'Basket:basket-delete-view' %}",
+            method: "post",
+            data: fdata,
+            dataType: 'json',
+            success: function (response) {
+                console.log(response)
+                if (response.action == 'delete') {
+                    //Remove Element
+                    const cartDiv = document.getElementById("your-cart")
+                    cartDiv.setAttribute('data-notify', response.basketqty)
+                    $(mythis).closest('tr').fadeOut()
+
+                    //updating value in Elements
+                    document.getElementById('header-cart-total').innerHTML = "Total: $" + response.basket_subtotal_price
+                    document.getElementById('cart-' + response.delete_id).style.display = "none";
+                    document.getElementById("basket-stotal-price").innerHTML = '$' + response.basket_subtotal_price
+                }
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+
+    })
+
+
+    /*---------------------------------
+    UPDATE PRODUCT IN CART PAGE 
+    ----------------------------------*/
+    $(document).on('change', '.selectQuantity', function () {
+        console.log('ss')
+        let prod_qty = $(this).val();
+        let prod_id = $(this).attr('pdt_id')
+        let prod_name = $(this).attr('pdt_name')
+        console.log(prod_qty, prod_id, prod_name)
+        var _vm = $(this);
+        // Ajax
+        $.ajax({
+            type: "POST",
+            url: "{% url 'Basket:basket-update-view' %}",
+            data: {
+                'prod_id': prod_id,
+                'prod_name': prod_name,
+                'prod_qty': prod_qty,
+                'csrfmiddlewaretoken': csrftoken,
+            },
+
+            dataType: 'json',
+            beforeSend: function () {
+                _vm.attr('disabled', true);
+            },
+            success: function (res) {
+                console.log(res)
+                $("#basket-stotal-price").html('Rs ' + res.basketsubtotal);
+
+
+                //update table
+                const tableCart = document.getElementById('table-shopping-cart')
+                let outputhtml = ''
+                let products = res.products
+                products.forEach((product) => {
+                    outputhtml += `
+                        
+                        <tr class="p-3">
+                            <td class="column-1">
+                                <div class="how-itemcart1">
+                                    <img src="${product['thumbnail']}" alt="IMG">
+                                </div>
+                            </td>
+                            <td class="column-2"> ${product['title']}</td>
+                            <td class="column-3">Rs ${product['price']}</td>
+                            <td class="column-4" style="width: 150px;">
+
+                                <div class="select">
+                                    <select name="selectQuantity" pdt_name="${product['title']}" pdt_id="${product['id']}"
+                                        class="selectQuantity" id="selectQuantity">
+                                        <option selected>Currently ${product['qty']}</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+
+                            </td>
+
+                            <td class="column-5">Rs ${product['totalprice']}</td>
+                            <td class="column-5"><button type="button" prod-id="${product['id']}" id="product-delete-btn" class="btn btn-sm btn-danger product-delete-btn">Delete</button></td>
+                        </tr>
+                `
+                });
+                tableCart.innerHTML = outputhtml
+
+                //update header cart
+                const headerCart = document.getElementById('header-cart')
+                let output = ''
+                products.forEach((elem) => {
+                    console.log('elem', ':', elem)
+                    output += `
+                    <li id="cart-${elem['id']}" class="header-cart-item flex-w flex-t m-b-12">
+                        <div class="header-cart-item-img">
+                            <img src="${elem['thumbnail']}" alt="IMG">
+                        </div>
+
+                        <div class="header-cart-item-txt p-t-8">
+                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                            ${elem['title']}
+                            </a>
+
+                            <span class="header-cart-item-info">
+                            ${elem['qty']} x ${elem['price']}
+                            </span>
+                        </div>
+                    </li>
+                `
+                });
+                headerCart.innerHTML = output
+
+                const headerCartTotal = document.getElementById('header-cart-total')
+                headerCartTotal.innerHTML = "<strong>Total:</strong> Rs " + res.basketsubtotal
+
+
+            }
+        });
+        // End
+    });
+
+
+
+
+    /*---------------------------------
+        PRODUCT REVIEW FORM
+    ----------------------------------*/
+    $("#addForm").submit(function (e) {
+        $.ajax({
+            data: $(this).serialize(),
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            dataType: 'json',
+            success: function (res) {
+                if (res.bool == true) {
+                    $(".ajaxRes").html('Data has been added.');
+                    $("#reset").trigger('click');
+                    // Hide Button
+                    $(".reviewBtn").hide();
+                    // End
+
+                    // create data for review
+                    var _html = '<blockquote class="blockquote text-right">';
+                    _html += '<small>' + res.data.review_text + '</small>';
+                    _html += '<footer class="blockquote-footer">' + res.data.user;
+                    _html += '<cite title="Source Title">';
+                    for (var i = 1; i <= res.data.review_rating; i++) {
+                        _html += '<i class="fa fa-star text-warning"></i>';
+                    }
+                    _html += '</cite>';
+                    _html += '</footer>';
+                    _html += '</blockquote>';
+                    _html += '</hr>';
+
+                    $(".no-data").hide();
+
+                    // Prepend Data
+                    $(".review-list").prepend(_html);
+
+                    // Hide Modal
+                    $("#productReview").modal('hide');
+
+                    // AVg Rating
+                    $(".avg-rating").text(res.avg_reviews.avg_rating.toFixed(1))
+                }
+            }
+        });
+        e.preventDefault();
+    });
 
 
 </script>

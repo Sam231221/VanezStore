@@ -6,7 +6,7 @@ from MClothing.models import Product
 from .basket import Basket
 import json
 from decimal import Decimal
-
+from MEhub.models import DeliveryOptions
 class BasketAddView(View):
     def post(self, request):
         basket = Basket(request)
@@ -65,6 +65,29 @@ class BasketUpdateView(View):
         return response
 
 
+class BasketDeliveryView(View):
+    def post(self, request):
+        delivery_option = int(request.POST.get("deliveryoption"))
+        basket = Basket(request)
+        delivery_type = DeliveryOptions.objects.get(id=delivery_option)
+        #frontend user can change the value so
+        #we rather first get id ,query the instance and get oprice
+        updated_total_price = basket.basket_update_delivery(delivery_type.price)
+
+        session = request.session
+        if "delivery" not in request.session:
+            session["delivery"] = {
+                "id": delivery_type.id,
+            }
+        else:
+            #modify it
+            session["delivery"]["id"] = delivery_type.id
+            session.modified = True
+
+        response = JsonResponse({"totalprice": updated_total_price, "delivery_price": delivery_type.price}, safe=False)
+        return response
+
+
 class BasketDeleteView(View):
     def post(self, request):
         print("enetered")
@@ -78,7 +101,7 @@ class BasketDeleteView(View):
                 'action':'delete',
                 'delete_id':prod_id,
                 'basketqty':basketqty,
-                'basket_subtotal_price': basket.get_subtotal_price()
+                'basketsubtotal': basket.get_subtotal_price()
             }, safe=False)
         return response
 

@@ -3,7 +3,7 @@ from MClothing.models import Product
 from django.conf import settings
 import uuid
 from django.utils.translation import gettext_lazy as _
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class DeliveryOptions(models.Model):
     """
@@ -38,12 +38,29 @@ class DeliveryOptions(models.Model):
     def __str__(self):
         return self.name
 
+class DiscountCoupon(models.Model):
+    discountcode = models.CharField(
+        null=True, help_text='For example:- sam3432', max_length=100)
+    discount = models.PositiveIntegerField(null=True, verbose_name="Discount in %", help_text='You can set discount from 1 to 90 %. Set the disount wisely.Note,DI do not accept decimal value.', validators=[MinValueValidator(1), MaxValueValidator(90)]
+                                           )
+    made_on = models.DateTimeField(auto_now_add=True, null=True)
 
+    def __str__(self):
+        return str(self.discountcode)
+
+
+class SetDiscount(models.Model):
+    name = models.CharField(null=True, max_length=100)
+    discount = models.PositiveIntegerField(null=True, verbose_name="Discount in %", help_text='You can set discount from 1 to 90 %. Set the disount wisely.Note,DI do not accept decimal value.', validators=[MinValueValidator(1), MaxValueValidator(90)]
+                                           )
+
+    def __str__(self):
+        return str(self.name)
 
 class BillingAddress(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Customer"), on_delete=models.CASCADE)
-    full_name = models.CharField(verbose_name=_("Full Name"), max_length=150)
+    full_name = models.CharField(null=True, max_length=150)
     email = models.EmailField(max_length=254, null=True, blank=True)
     phone = models.CharField(_("Phone Number"), max_length=50)
     address = models.CharField(max_length=250, null=True)
@@ -63,16 +80,18 @@ class BillingAddress(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="order_user")
-    full_name = models.CharField(max_length=50, null=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    total_paid = models.DecimalField(max_digits=5, decimal_places=2)
-    order_key = models.CharField(max_length=200)
+    transaction_id = models.CharField(max_length=200, null=True)
+    discountcoupon = models.ForeignKey(
+        DiscountCoupon, on_delete=models.SET_NULL, null=True, blank=True)
+    complete = models.BooleanField(default=False, null=True)
+
     class Meta:
         ordering = ("-created",)
 
     def __str__(self):
-        return str(self.created)
+        return f'Order by {self.user}'
 
 
 class OrderItem(models.Model):
@@ -82,4 +101,4 @@ class OrderItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return str(self.id)
+        return f'Order Item:{self.id} by {self.order.user}'

@@ -1,4 +1,5 @@
 {% extends 'frontendbase.html' %}
+{% load pricefilter %}
 {% block title %}Checkout{% endblock %}
 
 {% block head %}
@@ -30,13 +31,21 @@
                 <!--Delivery Form-->
                 {% if request.user.is_authenticated %}
                 <div class="col-md-7 col-lg-7 me-5">
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">
+                            Full name
+                            <sup class="required" title="Required">*</sup>
+                        </label>
+                        <input type="text" name="fullname" id="fullname" class="form-control"
+                            placeholder="Your full name ">
+                    </div>
 
                     <div class="mb-3">
                         <label for="email_address" class="form-label">
                             Email address
                             <sup class="required" title="Required">*</sup>
-                        </label> <input type="email" class="form-control" name="email" id="email" autocapitalize="off"
-                            autofocus="autofocus" placeholder="Email Address" aria-required="true">
+                        </label> <input type="email" class="form-control" name="email" id="email_address"
+                            autocapitalize="off" autofocus="autofocus" placeholder="Email Address" aria-required="true">
                     </div>
 
 
@@ -110,41 +119,44 @@
                 {% else %}
                 <div class="col-md-7 col-lg-7 me-5">
 
-                    <div class="mb-3">
-                        <label for="first_name" class="form-label">
-                            Full name
-                            <sup class="required" title="Required">*</sup>
-                        </label>
-                        <input type="text" name="fullname" id="first_name" class="form-control"
-                            placeholder="Your full name ">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email_address" class="form-label">
-                            Email address
-                            <sup class="required" title="Required">*</sup>
-                        </label> <input type="email" class="form-control" name="email" id="email_address"
-                            autocapitalize="off" autofocus="autofocus" placeholder="Email Address" aria-required="true">
-                    </div>
-
-
-
                     <div class="row mb-3">
                         <div class="col">
-                            <label class="form-label">
-                                Address
+                            <label for="fullname" class="form-label">
+                                Your name
                                 <sup class="required" title="Required">*</sup>
                             </label>
-                            <input type="text" name="address" class="form-control" placeholder="Address">
+                            <input type="text" name="fullname" id="fullname" class="form-control"
+                                placeholder="Enter your name">
                         </div>
+                        <div class="col">
+                            <label for="email_address" class="form-label">
+                                Email address
+                                <sup class="required" title="Required">*</sup>
+                            </label> <input type="email" class="form-control" name="email" id="email_address"
+                                autocapitalize="off" autofocus="autofocus" placeholder="Email Address"
+                                aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+
                         <div class="col">
                             <label class="form-label">
                                 City
                                 <sup class="required" title="Required">*</sup>
                             </label>
-                            <input type="text" name="city" class="form-control" placeholder="City you live in"
+                            <input type="text" name="city" id="city" class="form-control" placeholder="City you live in"
                                 aria-label="Last name">
                         </div>
+
+                        <div class="col">
+                            <label class="form-label">
+                                Address
+                                <sup class="required" title="Required">*</sup>
+                            </label>
+                            <input type="text" name="address" id="address" class="form-control" placeholder="Address">
+                        </div>
+
                     </div>
 
                     <label class="form-label">Delivery Options <sup class="required" title="Required">*</sup></label>
@@ -169,7 +181,7 @@
                             </div>
                             <div class="col-md-1 ps-md-1">
                                 <input class="align-middle h-100" type="radio" name="deliveryOption" id="{{i.id}}"
-                                    deliveryoptions="{{i.name}}" value="{{i.price}}">
+                                    deliverytype="{{i.name}}" value="{{i.price}}">
                             </div>
                         </div>
                     </div>
@@ -183,54 +195,214 @@
                 <div class="col-md-4 col-lg-4 shadow p-5">
                     <div class="d-flex bd-highlight ms-0">
                         <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
-                        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="sub_total"
-                                class="fw-bold h5">323.96</span></div>
+                        <div class="p-2 bd-highlight">
+                            <span id="subtotal" class="fw-bold h5"
+                                price="{{basket.get_subtotal_price}}">{{basket.get_subtotal_price |currency}}</span>
+                        </div>
                     </div>
                     <div class="d-flex bd-highlight">
                         <div class="p-2 flex-grow-1 bd-highlight">Delivery Cost:</div>
-                        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="delivery_price"
-                                class="fw-bold h5">8.99</span></div>
+                        <div class="p-2 bd-highlight">
+                            <span id="deliveryprice" class="fw-bold h5">Rs 0</span>
+                        </div>
                     </div>
                     <div class="d-flex bd-highlight mb-3">
                         <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
-                        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="total"
-                                class="fw-bold h5">332.95</span></div>
+                        <div class="p-2 bd-highlight">
+                            <span id="totalprice" class="fw-bold h5">{{basket.get_subtotal_price |currency}}</span>
+                        </div>
                     </div>
-                    <button href="/checkout/delivery_address/" class="khalti-btn fw-bold w-100" type="button">Pay with
-                        Khalti</button>
+
+                    <button type="button" class="khalti-btn fw-bold w-100" id="payment-button">Pay with Khalti</button>
+
+                    <button id="btn" class="btn btn-success">Validate</button>
                 </div>
 
             </div>
         </div>
 
-        <script>
-            let khaltiBtn = document.getElementsByClassName('khalti-btn')
-            khaltiBtn = document.addEventListener('click', () => {
 
-                console.log('Email:', document.getElementById('email').value)
-                console.log('Delviery Price:', document.querySelector('input[name="deliveryOption"]:checked').value)
-            })
-            $('input[type=radio][name=deliveryOption]').on('change', function (e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "POST",
-                    url: '/checkout/basket_update_delivery/',
-                    data: {
-                        deliveryoption: $(this).val(),
-                        csrfmiddlewaretoken: "cOu2vThlxEAYK9BYKAvj0EbuF4OqnSwuw6gQnTTKM2lhSeWe3MjKc6VLWG3gLleT",
-                        action: "post",
-                    },
-                    success: function (json) {
-                        document.getElementById("total").innerHTML = json.total;
-                        document.getElementById("delivery_price").innerHTML = json.delivery_price;
-                    },
-                    error: function (xhr, errmsg, err) { },
-                });
-
-            });
-        </script>
 
 
     </div>
 </main>
+{% endblock %}
+
+{% block script %}
+<script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+    var user = '{{request.user}}'
+    console.log(user)
+    var config = {
+        // replace the publicKey with yours
+        "publicKey": "test_public_key_95cae5a0974c43b1a6be964395ab4853",
+        "productIdentity": "order_{{order.id}}",
+        "productName": "order_{{order.id}}",
+        "productUrl": "http://localhost:8000",
+        "paymentPreference": [
+            "KHALTI",
+            "EBANKING",
+            "MOBILE_BANKING",
+            "CONNECT_IPS",
+            "SCT",
+        ],
+        "eventHandler": {
+            onSuccess(payload) {
+                console.log('Payload:', payload);
+
+                if (user != 'AnonymousUser') {
+                    LoggedInCheckout()
+                } else {
+                    /*CHECK  IF EMAIL IS VALID AND ACCEPTS SMTP FIRST */
+                    var myHeaders = new Headers();
+                    myHeaders.append("apikey", "7uFyZhv9LGMv6XMbx9LZMxSjtviZvqsZ");
+
+                    var requestOptions = {
+                        method: 'GET',
+                        redirect: 'follow',
+                        headers: myHeaders
+                    };
+
+                    let email = $("#email_address").val()
+                    fetch(`https://api.apilayer.com/email_verification/check?email=${email}`, requestOptions)
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log(result)
+                            resultJson = JSON.parse(result)
+                            if (resultJson.smtp_check == true && resultJson.format_valid == true) {
+                                GuestCheckout(email)
+                            } else {
+                                console.log("Sorry Couldn't proccess for payment. Hint:We can't send emails to this email.")
+                            }
+                        })
+                        .catch(error => console.log('error', error));
+
+
+                }
+
+                function GuestCheckout(email) {
+                    axios.get("{% url 'Ehub:guest-user-payment-view' %}", {
+                        params: {
+                            "token": payload.token,
+                            "amount": payload.amount,
+                            "name": document.getElementById('fullname').value,
+                            "email": email,
+                            "address": document.getElementById('address').value,
+                            'city': document.getElementById('city').value,
+                            'deliveryid': document.querySelector('input[name="deliveryOption"]:checked').getAttribute('id')
+                        }
+
+                    }).then(function (resp) {
+                        console.log(resp.data)
+                        if (resp.data.success == true) {
+                            alert("Payment Completed Successfully. Your Order has been placed.")
+                            window.location.href = "{% url 'Ehub:home-view' %}"
+                        } else {
+                            alert("Sorry. Error occurred")
+                            location.href = "{{request.build_absolute_uri}}"
+                        }
+                    })
+                }
+
+
+                function LoggedInCheckout() {
+                    axios.get("{% url 'Ehub:loggedin-user-payment-view' %}", {
+                        params: {
+                            "token": payload.token,
+                            "amount": payload.amount,
+                            "fullname": document.getElementById('fullname').value,
+                            "email": document.getElementById('email_address').value,
+                            "phonenumber": document.getElementById('phonenumber').value,
+                            "address": document.getElementById('address').value,
+                            'city': document.getElementById('city').value,
+                            'zip': document.getElementById('zip').value,
+                            'deliveryid': document.querySelector('input[name="deliveryOption"]:checked').getAttribute('id')
+                            //   "order_id": "{{order.id}}"
+                        }
+
+                    }).then(function (resp) {
+                        console.log(resp.data)
+                        if (resp.data.success == true) {
+                            alert("Payment Completed Successfully. Your Order has been placed.")
+                            window.location.href = "{% url 'Ehub:home-view' %}"
+                        } else {
+                            alert("Sorry. Error occurred")
+                            location.href = "{{request.build_absolute_uri}}"
+                        }
+                    })
+                }
+
+            },
+            onError(error) {
+                console.log('500 error')
+                console.log(error);
+            },
+            onClose() {
+                console.log('widget is closing');
+            }
+        }
+    };
+
+    let checkout = new KhaltiCheckout(config);
+    let btn = document.getElementById("payment-button");
+
+    btn.onclick = function () {
+        totalamount = Number(document.getElementById('totalprice').getAttribute('value'))
+        //minimum transaction amount must be 10, i.e 1000 in paisa.
+        checkout.show({ amount: totalamount * 100 });
+    }
+
+
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        /*--------------------
+        CSRF_TOKEN
+        ----------------------*/
+        const getToken = (name) => {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(
+                            name.length += 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        let csrftoken = getToken('csrftoken');
+
+
+        //DELIVERY PRICE AND TOTAL PRICE UPDATE
+        $('input[type=radio][name=deliveryOption]').on('change', function (e) {
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'Basket:basket-delivery-view' %}",
+                data: {
+                    deliveryoption: $(this).attr('id'),
+                    csrfmiddlewaretoken: csrftoken,
+                },
+                success: function (jsonresponse) {
+                    document.getElementById('totalprice').setAttribute('value', jsonresponse.totalprice)
+                    document.getElementById('totalprice').innerHTML = 'Rs ' + jsonresponse.totalprice
+                    document.getElementById("deliveryprice").innerHTML = jsonresponse.delivery_price;
+                },
+                error: function (xhr, errmsg, err) { },
+            });
+
+        });
+
+
+    })
+</script>
 {% endblock %}

@@ -1,6 +1,6 @@
 from decimal import Decimal
 from MClothing.models import Product
-
+from MEhub.models import DeliveryOptions
 class Basket():
     """
     A base Basket class, providing some default behaviors that
@@ -106,20 +106,45 @@ class Basket():
     def get_subtotal_price(self):
         return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
     
+    def get_delivery_price(self):
+        newprice = 0.00
+
+        if "delivery" in self.session:
+            newprice = DeliveryOptions.objects.get(id=self.session["delivery"]["id"]).price
+
+        return newprice
+
     def get_total_price(self):
-        return sum(Decimal(item['price']) * item['qty'] for item in self.basket.values())
+        newprice = 0.00
+        subtotal = sum(Decimal(item["price"]) * item["qty"] for item in self.basket.values())
 
+        if "delivery" in self.session:
+            newprice = DeliveryOptions.objects.get(id=self.session["delivery"]["id"]).price
 
-    def delete(self, product_id):
+        total = subtotal + Decimal(newprice)
+        return total
+
+    def basket_update_delivery(self, deliveryprice=0):
+        subtotal = sum(Decimal(item["price"]) * item["qty"] for item in self.basket.values())
+        total = subtotal + Decimal(deliveryprice)
+        return total
+
+    def delete(self, product):
         """
         Delete item from session data
         """
-        product_id = str(product_id)
+        product_id = str(product)
 
         if product_id in self.basket:
             del self.basket[product_id]
-            print(product_id)
             self.save()
+
+    def clear(self):
+        # Remove basket from session
+        del self.session['skey']
+        #del self.session["address"]
+        del self.session["delivery"]
+        self.save()
 
     def save(self):
         self.session.modified = True
