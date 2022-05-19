@@ -39,8 +39,7 @@ class SearchEngineView(View):
             response = product_list    
         else:
             response = "Sorry, We don't currently have "+str(query)    
-            print(response)        
-        
+
         return JsonResponse({'queryset':response}, safe=False)
         
 
