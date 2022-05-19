@@ -1,46 +1,236 @@
-<div class="flex-w flex-t bor12 p-t-15 p-b-30">
-    <div class="size-208 w-full-ssm">
-        <span class="stext-110 cl2">
-            Shipping:
+{% extends 'frontendbase.html' %}
+{% block title %}Checkout{% endblock %}
+
+{% block head %}
+<!-- breadcrumb -->
+<div class="container">
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            Checkout
         </span>
     </div>
-
-    <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-        <p class="stext-111 cl6 p-t-2">
-            There are no shipping methods available. Please double check your address, or contact us
-            if you need any help.
-        </p>
-
-        <div class="p-t-15">
-            <span class="stext-112 cl8">
-                Calculate Shipping
-            </span>
-
-            <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                <select class="js-select2" name="time">
-                    <option>Select a country...</option>
-                    <option>USA</option>
-                    <option>UK</option>
-                </select>
-                <div class="dropDownSelect2"></div>
-            </div>
-
-            <div class="bor8 bg0 m-b-12">
-                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state"
-                    placeholder="State /  country">
-            </div>
-
-            <div class="bor8 bg0 m-b-22">
-                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode"
-                    placeholder="Postcode / Zip">
-            </div>
-
-            <div class="flex-w">
-                <div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer">
-                    Update Totals
-                </div>
-            </div>
-
-        </div>
-    </div>
 </div>
+
+{% endblock %}
+
+{% block body %}
+<main class="p-5">
+    <div id="content">
+
+
+        <div class="container">
+
+            <div class="row gx-3">
+
+                <!--Delivery Form-->
+                {% if request.user.is_authenticated %}
+                <div class="col-md-7 col-lg-7 me-5">
+
+                    <div class="mb-3">
+                        <label for="email_address" class="form-label">
+                            Email address
+                            <sup class="required" title="Required">*</sup>
+                        </label> <input type="email" class="form-control" name="email" id="email" autocapitalize="off"
+                            autofocus="autofocus" placeholder="Email Address" aria-required="true">
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">
+                                Address
+                                <sup class="required" title="Required">*</sup>
+                            </label>
+                            <input type="text" name="address" id="address" class="form-control" placeholder="Address">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">
+                                City
+                                <sup class="required" title="Required">*</sup>
+                            </label>
+                            <input type="text" name="city" id="city" class="form-control" placeholder="City you live in"
+                                aria-label="Last name">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">
+                                Phone Number
+                                <sup class="required" title="Required">*</sup>
+                            </label>
+                            <input type="text" name="phonenumber" id="phonenumber" class="form-control"
+                                placeholder="Phone Number">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">
+                                Postal Code
+                                <sup class="required" title="Required">*</sup>
+                            </label>
+                            <input id="zip" name="zip" type="text" class="form-control" placeholder="3456"
+                                pattern="[0-9]*" maxlength="4">
+                        </div>
+                    </div>
+
+                    <label class="form-label">Delivery Options <sup class="required" title="Required">*</sup></label>
+                    {% for i in deliveryoptions %}
+                    <div class="card mb-3 border-1 rounded-0 product-item me-md-4" data-index="1">
+
+                        <div class="row g-0">
+
+                            <div class="col-md-2 ps-3 ps-md-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                    class="bi bi-truck mt-2" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="col-md-9 ps-md-1">
+                                <div class="card-body p-1">
+                                    <p class="card-text ps-2 mb-1 pt-1 fw-bold">{{i.name}}</p>
+                                    <p class="card-text ps-2 pb-3">{{i.description}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-1 ps-md-1">
+                                <input class="align-middle h-100" type="radio" name="deliveryOption" id="{{i.id}}"
+                                    deliveryoptions="{{i.name}}" value="{{i.price}}">
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+                {% else %}
+                <div class="col-md-7 col-lg-7 me-5">
+
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">
+                            Full name
+                            <sup class="required" title="Required">*</sup>
+                        </label>
+                        <input type="text" name="fullname" id="first_name" class="form-control"
+                            placeholder="Your full name ">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email_address" class="form-label">
+                            Email address
+                            <sup class="required" title="Required">*</sup>
+                        </label> <input type="email" class="form-control" name="email" id="email_address"
+                            autocapitalize="off" autofocus="autofocus" placeholder="Email Address" aria-required="true">
+                    </div>
+
+
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">
+                                Address
+                                <sup class="required" title="Required">*</sup>
+                            </label>
+                            <input type="text" name="address" class="form-control" placeholder="Address">
+                        </div>
+                        <div class="col">
+                            <label class="form-label">
+                                City
+                                <sup class="required" title="Required">*</sup>
+                            </label>
+                            <input type="text" name="city" class="form-control" placeholder="City you live in"
+                                aria-label="Last name">
+                        </div>
+                    </div>
+
+                    <label class="form-label">Delivery Options <sup class="required" title="Required">*</sup></label>
+                    {% for i in deliveryoptions %}
+                    <div class="card mb-3 border-1 rounded-0 product-item me-md-4" data-index="1">
+
+                        <div class="row g-0">
+
+                            <div class="col-md-2 ps-3 ps-md-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                    class="bi bi-truck mt-2" viewBox="0 0 16 16">
+                                    <path
+                                        d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="col-md-9 ps-md-1">
+                                <div class="card-body p-1">
+                                    <p class="card-text ps-2 mb-1 pt-1 fw-bold">{{i.name}}</p>
+                                    <p class="card-text ps-2 pb-3">{{i.description}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-1 ps-md-1">
+                                <input class="align-middle h-100" type="radio" name="deliveryOption" id="{{i.id}}"
+                                    deliveryoptions="{{i.name}}" value="{{i.price}}">
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+                {% endif %}
+
+                <!--Summary-->
+                <div class="col-md-4 col-lg-4 shadow p-5">
+                    <div class="d-flex bd-highlight ms-0">
+                        <div class="p-2 flex-grow-1 bd-highlight">Sub Total:</div>
+                        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="sub_total"
+                                class="fw-bold h5">323.96</span></div>
+                    </div>
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 flex-grow-1 bd-highlight">Delivery Cost:</div>
+                        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="delivery_price"
+                                class="fw-bold h5">8.99</span></div>
+                    </div>
+                    <div class="d-flex bd-highlight mb-3">
+                        <div class="p-2 flex-grow-1 bd-highlight">Total:</div>
+                        <div class="p-2 bd-highlight"><span class="fw-bold h5">£</span><span id="total"
+                                class="fw-bold h5">332.95</span></div>
+                    </div>
+                    <button href="/checkout/delivery_address/" class="khalti-btn fw-bold w-100" type="button">Pay with
+                        Khalti</button>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            let khaltiBtn = document.getElementsByClassName('khalti-btn')
+            khaltiBtn = document.addEventListener('click', () => {
+
+                console.log('Email:', document.getElementById('email').value)
+                console.log('Delviery Price:', document.querySelector('input[name="deliveryOption"]:checked').value)
+            })
+            $('input[type=radio][name=deliveryOption]').on('change', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '/checkout/basket_update_delivery/',
+                    data: {
+                        deliveryoption: $(this).val(),
+                        csrfmiddlewaretoken: "cOu2vThlxEAYK9BYKAvj0EbuF4OqnSwuw6gQnTTKM2lhSeWe3MjKc6VLWG3gLleT",
+                        action: "post",
+                    },
+                    success: function (json) {
+                        document.getElementById("total").innerHTML = json.total;
+                        document.getElementById("delivery_price").innerHTML = json.delivery_price;
+                    },
+                    error: function (xhr, errmsg, err) { },
+                });
+
+            });
+        </script>
+
+
+    </div>
+</main>
+{% endblock %}

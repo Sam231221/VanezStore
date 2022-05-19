@@ -30,7 +30,6 @@
 
 				<!--Products By Filter-->
 				<div class="row" id="filteredProducts">
-
 					<p class="ajaxLoader">Loading...</p>
 					{% for i in products %}
 					<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
@@ -47,7 +46,6 @@
 						</div>
 					</div>
 					{% endfor %}
-
 				</div>
 
 				<!--Load More-->
@@ -174,8 +172,8 @@
 				});
 
 			});
-			console.log('filterObj:',filterObj)
-	
+			console.log('filterObj:', filterObj)
+
 
 
 			//Initiate Ajax
@@ -189,16 +187,16 @@
 				},
 				success: function (response) {
 					console.log(response)
-					console.log('\nhtml:',response.products)
-					if (response.products == ''){
+					console.log('\nhtml:', response.products)
+					if (response.products == '') {
 						console.log('tf')
 						$("#filteredProducts").html('<h4 style="text-align:center;color:red;">No Products found for this match.</h4>');
 						$(".ajaxLoader").hide();
-					}else{
+					} else {
 						$("#filteredProducts").html(response.products);
 						$(".ajaxLoader").hide();
 					}
-					
+
 				}
 			});
 

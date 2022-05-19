@@ -76,7 +76,21 @@ a {
 .not-visible {
   display: none;
 }
+.khalti-btn{
+  background-color: rgb(198, 0, 198);
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px 9px;
+}
+.khalti-btn:hover{
+  background-color: rgb(171, 7, 171);
+  color: white;
+}
 
+sup{
+  color: red;
+}
 .search-query {
   width: 71%;
   position: absolute;

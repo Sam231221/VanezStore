@@ -1,7 +1,4 @@
 <script>
-    /*------------------------------------
-    JQUERY PAGE LOADING
-    ------------------------------------ */
     (function ($) {
         "use strict";
 
@@ -29,7 +26,6 @@
 
 
     })(jQuery);
-
 
     /*--------------------
     CSRF_TOKEN
@@ -70,22 +66,7 @@
                 $("#spinner").addClass('visually-hidden');
             },
             success: function (response) {
-                console.log(response)
-                const data = response.queryset
-                if (Array.isArray(data)) {
-
-                    searchquery.innerHTML = " "  //start with empty
-                    data.forEach(keyword => {
-                        searchquery.innerHTML +=
-                            `<li class="mb-2 search-obj pt-3 pb-3 px-4"><a class="text-black" href="${keyword.url}" style="text-decoration:none;"><b>${keyword.title}</b></a></li> `
-                    })
-                } else {
-                    if (searchinput.value.length > 0) {
-                        searchquery.innerHTML = `<p  class="text-black pt-3 pb-3 px-4">${data}</p> `
-                    } else {
-                        searchquery.classList.add("invisible");
-                    }
-                }
+                console.log('thanks!')
             },
             error: function (error) {
                 console.log(error.data)
@@ -94,7 +75,6 @@
 
         })
     }
-
 
     const searchform = document.getElementById("search-form")
     const searchinput = document.getElementById("search-input")
@@ -109,8 +89,10 @@
         sendSearchData(e.target.value);
     })
 
+
+
     /*--------------------
-    NUM INCR/DECR
+    QUANTITY INCR/DECR
     ----------------------*/
     const minValue = 0
     const maxValue = 10
@@ -163,7 +145,7 @@
 
 
     /*--------------------
-    PRODUCT DETAIL VIEW
+    SHOW PRODUCT DETAIL VIEW
     ----------------------*/
     const modalDetailContainer = document.getElementById('modal-detail-container')
     const modalBtns = [...document.getElementsByClassName('product-modal-btn')] //Array
@@ -261,6 +243,7 @@
 
 
 
+
     /*---------------------------------
     ADD/UPDATE PRODUCT IN MODAL FORM 
     ----------------------------------*/
@@ -270,6 +253,8 @@
         e.preventDefault()
         prod_id = productAddBtn.getAttribute('prod-id')
         prod_code = productAddBtn.getAttribute('prod-code')
+        prod_size = document.querySelector('se')
+        prod_color = productAddBtn.getAttribute('prod-color')
 
         const productQuantity = document.getElementById("product-quantity")
         let prod_quantity = productQuantity.getAttribute('value')
@@ -277,7 +262,9 @@
         const data = {
             "prod_id": prod_id,
             "prod_code": prod_code,
-            "prod_quantity": prod_quantity
+            "prod_quantity": prod_quantity,
+            "prod_size": prod_size,
+            "prod_color": prod_color
         }
         console.log("data:", data)
         fetch(url, {
@@ -307,28 +294,31 @@
                 elements.forEach((elem) => {
                     console.log('elem', ':', elem)
                     outputhtml += `
-        <li id="cart-${elem['prod-id']}" class="header-cart-item flex-w flex-t m-b-12">
-            <div class="header-cart-item-img">
-                <img src="${elem['thumbnail']}" alt="IMG">
-            </div>
+                        <li id="cart-${elem['id']}" class="header-cart-item flex-w flex-t m-b-12">
+                            <div class="header-cart-item-img">
+                                <img src="${elem['thumbnail']}" alt="IMG">
+                            </div>
 
-            <div class="header-cart-item-txt p-t-8">
-                <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                ${elem['title']}
-                </a>
+                            <div class="header-cart-item-txt p-t-8">
+                                <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                ${elem['title']}
+                                </a>
 
-                <span class="header-cart-item-info">
-                ${elem['qty']} x ${elem['price']}
-                </span>
-            </div>
-        </li>
-    `
+                                <span class="header-cart-item-info">
+                                ${elem['qty']} x ${elem['price']}
+                                </span>
+                            </div>
+                        </li>
+                    `
                 });
                 headerCart.innerHTML = outputhtml
 
 
             })
     })
+
+
+
 
 
 </script>

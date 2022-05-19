@@ -31,12 +31,12 @@ basket= self.session.get('skey')= {
 
 #when we loop the basket the basket will changed as def **iter**(self) is called
 iter=self.session.get('skey')=[
-{
-'price': Decimal('23.00'),
-'qty': 1,
-'product': '<Product: Female Summer Shirt Pants>',
-'total_price': Decimal('23.00')
-},
+        {
+        'price': Decimal('23.00'),
+        'qty': 1,
+        'product': '<Product: Female Summer Shirt Pants>',
+        'total_price': Decimal('23.00')
+        },
 
         {
             'price': Decimal('33.00'),

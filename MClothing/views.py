@@ -1,21 +1,12 @@
 import json
-from django.db.models import Max,Min,Count,Avg
+from django.db.models import Avg
 from django.http.response import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from .models import Color, Product, Category, Customer, Size, ProductReview
 from django.template.loader import render_to_string
 from .forms import ReviewAddForm
 
-class Home(TemplateView):
-    template_name = 'frontendbase.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["featuredproducts"] = Product.products.filter(is_featured=True).order_by('-id')[:4]
-        context["recentproducts"] = Product.products.all().order_by('-published_on')[:4]
-        
-        return context
-  
 class StoreView(View):
     def get(self, request):
         
@@ -97,34 +88,7 @@ class ProductReviewJsonView(View):
         avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
         return JsonResponse({'bool':True,'data':data,'avg_reviews':avg_reviews},safe=False)
 
-
-class SearchEngineView(View):
-    def post(self, request):
-        query = request.POST['keyword']
-        print(query)
-        product_queryset =  Product.products.filter(title__icontains=query)
-        print(product_queryset)
-        if len(product_queryset) > 0 and len(query) > 0:
-            product_list = [] #inititae an empty list
-            
-            #Append all customer obj into the list using loop.
-            for obj in product_queryset:
-                item= {
-                    'pk': obj.id,
-                    'url': obj.get_absolute_url(),
-                    'title': obj.title 
-                }
-                product_list.append(item)
-            
-            #now attach customer_list  to the response
-            response = product_list    
-        else:
-            response = "Sorry, We don't currently have "+str(query)    
-            print(response)        
-        
-        return JsonResponse({'queryset':response}, safe=False)
-        
-            
+      
 class ProductFilterJsonView(View):
     def get(self, request):
         colors = request.GET.getlist('color[]')

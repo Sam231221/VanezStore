@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class McheckoutConfig(AppConfig):
+class MehubConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'MCheckout'
+    name = 'MEhub'
