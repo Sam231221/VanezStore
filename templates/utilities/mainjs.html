@@ -244,6 +244,80 @@
 
 
 
+    /*---------------------------------
+    ADD/UPDATE PRODUCT IN MODAL FORM 
+    ----------------------------------*/
+    const productAddBtn = document.getElementById("product-add-btn")
+    productAddBtn.addEventListener("click", (e) => {
+        outputhtml = ''
+        e.preventDefault()
+        prod_id = productAddBtn.getAttribute('prod-id')
+        prod_code = productAddBtn.getAttribute('prod-code')
+        prod_size = document.querySelector('se')
+        prod_color = productAddBtn.getAttribute('prod-color')
+
+        const productQuantity = document.getElementById("product-quantity")
+        let prod_quantity = productQuantity.getAttribute('value')
+        const url = "{% url 'Basket:basket-add-view' %}"
+        const data = {
+            "prod_id": prod_id,
+            "prod_code": prod_code,
+            "prod_quantity": prod_quantity,
+            "prod_size": prod_size,
+            "prod_color": prod_color
+        }
+        console.log("data:", data)
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify(data)
+
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                let elements = response.products
+                console.log(elements)
+                let cartDiv = document.getElementsByClassName("your-cart")
+                for (let i = 0; i < cartDiv.length; i++) {
+                    cartDiv[i].setAttribute('data-notify', response.basketqty)
+                }
+                const headerCartTotal = document.getElementById('header-cart-total')
+                headerCartTotal.innerHTML = "Total: $" + response.basketsubtotal
+
+                const headerCart = document.getElementById('header-cart')
+                let outputhtml = ''
+                elements.forEach((elem) => {
+                    console.log('elem', ':', elem)
+                    outputhtml += `
+                        <li id="cart-${elem['id']}" class="header-cart-item flex-w flex-t m-b-12">
+                            <div class="header-cart-item-img">
+                                <img src="${elem['thumbnail']}" alt="IMG">
+                            </div>
+
+                            <div class="header-cart-item-txt p-t-8">
+                                <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                ${elem['title']}
+                                </a>
+
+                                <span class="header-cart-item-info">
+                                ${elem['qty']} x ${elem['price']}
+                                </span>
+                            </div>
+                        </li>
+                    `
+                });
+                headerCart.innerHTML = outputhtml
+
+
+            })
+    })
+
+
 
 
 

@@ -1,7 +1,7 @@
 import json
 from django.db.models import Avg
 from django.http.response import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from .models import Color, Product, Category, Customer, Size, ProductReview
 from django.template.loader import render_to_string

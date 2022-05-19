@@ -5,7 +5,7 @@ from django.views.generic import View
 from MClothing.models import Product
 from .basket import Basket
 import json
-
+from decimal import Decimal
 
 class BasketAddView(View):
     def post(self, request):
@@ -21,9 +21,13 @@ class BasketAddView(View):
         
         #Sending Dictionary Values to Frontend
         context = basket.session['skey']
+        print('----------------------')
+        print('context:',context)
         for key in context:
             prod_obj = Product.objects.get(id=key)
-            context[key]['prod-id'] = prod_obj.id
+
+            #append extra key value pairs
+            context[key]['id'] = prod_obj.id
             context[key]['title'] = prod_obj.title
             context[key]['thumbnail'] = prod_obj.thumbnail
 
@@ -33,7 +37,34 @@ class BasketAddView(View):
                                  'basketsubtotal': basket.get_subtotal_price(),
                                  },
                                 safe=False)
-#Shopping Cart
+
+
+class BasketUpdateView(View):
+    def post(self, request):
+        basket = Basket(request)
+        product_id = int(request.POST.get('prod_id'))
+        product_qty = int(request.POST.get('prod_qty'))
+        product_name = request.POST.get('prod_name')
+        basket.update(product=product_id, qty=product_qty)
+        basket=Basket(request)
+        print('--------------------------')
+        print(basket.session['skey'])
+        basketlength = basket.__len__()#totalquantites
+
+        #Get the basket sessionValues to Frontend
+        context = basket.session['skey']
+        for key in context:
+            #append extra key value pair
+            context[key]['totalprice'] =float(Decimal(context[key]['price']) * context[key]['qty'])
+
+        response = JsonResponse({
+            'products': list(context.values()),
+             'basketqty': basket.get_cart_items(),
+             'basketsubtotal': basket.get_subtotal_price(),
+        }, safe=False)
+        return response
+
+
 class BasketDeleteView(View):
     def post(self, request):
         print("enetered")
@@ -51,15 +82,3 @@ class BasketDeleteView(View):
             }, safe=False)
         return response
 
-
-class BasketUpdateView(View):
-    def post(self, request):
-        basket = Basket(request)
-        product_id = int(request.POST.get('productid'))
-        product_qty = int(request.POST.get('productqty'))
-        basket.update(product=product_id, qty=product_qty)
-
-        basketqty = basket.__len__()
-        baskettotal = basket.get_total_price()
-        response = JsonResponse({'qty': basketqty, 'subtotal': baskettotal})
-        return response
