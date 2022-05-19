@@ -91,8 +91,6 @@ class GuestUserPaymentView(View):
         response = requests.post(url, payload, headers=headers)  # sending data to url
         resp_dict = response.json()
 
-
-
         if resp_dict.get("idx") and deliveryid and basket.get_total_price() ==  float(int(amount)/100):    
             userbillingaddress, created = BillingAddress.objects.get_or_create(user=user_obj)
 
