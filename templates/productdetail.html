@@ -42,7 +42,7 @@
                     <span class="my-3 text-muted">Ratings:<span class="avg-rating">{{avg_reviews.avg_rating}}</span>/5
                         <i class="fa fa-star text-warning"></i>
 
-                        {% if user.is_authenticated %}
+                        {% if request.user.is_authenticated %}
                         {% if canAdd %}
                         <button data-bs-toggle="modal" data-bs-target="#productReview" type="button"
                             class="btn btn-warning btn-sm float-right reviewBtn">Add Review</button>
@@ -51,7 +51,7 @@
                     </span>
 
                     <!-- Product Form Review -->
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                     <div class="modal fade" id="productReview" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">

@@ -29,19 +29,44 @@
 				</div>
 
 				<!--Products By Filter-->
-				<div class="row" id="filteredProducts">
-					<p class="ajaxLoader">Loading...</p>
+				<div class="row gx-3 gy-3" id="filteredProducts">
+
 					{% for i in products %}
-					<div class="col-sm-6 col-lg-4 mb-4" data-aos="fade-up">
-						<div class="block-4 text-center border">
-							<figure class="block-4-image">
-								<a href="shop-single.html"><img src="{{i.thumbnail}}" alt="Image placeholder"
-										class="img-fluid"></a>
-							</figure>
-							<div class="block-4-text p-4">
-								<strong>{{i.title}}</strong>
-								<p class="mb-0">{{i.description}}</p>
-								<p class="text-muted ">${{i.price}}</p>
+					<div class="col-sm-6 col-md-4 col-lg-3 shadow-sm" data-aos="fade-up">
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<img class="img-fluid shadow" src="{{i.thumbnail}}" alt="IMG-PRODUCT">
+
+								<button
+									class="block2-btn flex-c-m stext-103 product-modal-btn cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04"
+									data-bs-toggle="modal" data-bs-target="#productDetailModal"
+									prod-code="{{i.product_code}}" prod-title="{{i.title}}" prod-price="{{i.price}}"
+									prod-size="{{i.size}}" prod-color="color" prod-description="{{i.description}}"
+									prod-id="{{i.id}}">
+									Quick View
+								</button>
+
+							</div>
+
+							<div class="block2-txt flex-w flex-t p-t-14">
+								<div class="block2-txt-child1 flex-col-l ">
+									<p class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+										{{i.title}}
+									</p>
+
+									<span class="stext-105 cl3">
+										${{i.price}}
+									</span>
+								</div>
+
+								<div class="block2-txt-child2 flex-r p-t-3">
+									<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+										<img class="icon-heart1 dis-block trans-04"
+											src="{% static 'images/icons/icon-heart-01.png' %}" alt="ICON">
+										<img class="icon-heart2 dis-block trans-04 ab-t-l"
+											src="{% static 'images/icons/icon-heart-02.png' %}" alt="ICON">
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -142,7 +167,8 @@
 
 
 </div>
-
+<!--Product Modal Detail-->
+{% include 'utilities/product-modal-detail.html' %}
 
 {% endblock %}
 
@@ -186,8 +212,7 @@
 					$(".ajaxLoader").show();
 				},
 				success: function (response) {
-					console.log(response)
-					console.log('\nhtml:', response.products)
+
 					if (response.products == '') {
 						console.log('tf')
 						$("#filteredProducts").html('<h4 style="text-align:center;color:red;">No Products found for this match.</h4>');

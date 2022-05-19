@@ -4,6 +4,7 @@ from django.conf import settings
 import uuid
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 
 class DeliveryOptions(models.Model):
     """
@@ -59,7 +60,7 @@ class SetDiscount(models.Model):
 
 class BillingAddress(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Customer"), on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name=_("Customer"), on_delete=models.CASCADE)
     full_name = models.CharField(null=True, max_length=150)
     email = models.EmailField(max_length=254, null=True, blank=True)
     phone = models.CharField(_("Phone Number"), max_length=50)
@@ -79,7 +80,7 @@ class BillingAddress(models.Model):
         return "Address"
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="order_user")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="order_user")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     transaction_id = models.CharField(max_length=200, null=True)

@@ -1,10 +1,12 @@
 from random import randrange
+from django.conf import settings
 from django.utils import timezone
 from django.db import models
 import datetime
 from django.urls import reverse
 from django.utils.html import mark_safe
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 CHARSET = '0123456789ABCDEFGHJKMNPQRSTVWXYZ'
 LENGTH = 16
@@ -99,7 +101,7 @@ class ProductManager(models.Manager):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='product', on_delete=models.SET_NULL, null= True, blank=True)
     title = models.CharField(null=True,db_index=True, max_length=50)
-    author = models.ForeignKey(Customer,on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(User,on_delete=models.SET_NULL, null=True)
     description = models.TextField(blank=True)
     thumbnail = models.URLField(null = True)
   
@@ -167,10 +169,10 @@ RATING=(
     ('5','5'),
 )
 class ProductReview(models.Model):
-    user=models.ForeignKey(Customer,on_delete=models.CASCADE)
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
-    review_text=models.TextField()
-    review_rating=models.CharField(choices=RATING,max_length=150)
+    user=models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE, null=True)
+    review_text=models.TextField(null=True)
+    review_rating=models.CharField(choices=RATING,max_length=150, null=True)
 
     class Meta:
         verbose_name_plural='Reviews'

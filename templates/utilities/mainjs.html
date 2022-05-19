@@ -52,12 +52,13 @@
     /*--------------------
     SEARCH ENGINE
     ----------------------*/
+    //Function Prototype    
     const sendSearchData = (keyword) => {
         $.ajax({
             type: "POST",
             url: "/search/",
             data: {
-                'csrfmiddlewaretoken': csrftoken,  //const csrf_token ==...
+                'csrfmiddlewaretoken': csrftoken,
                 'keyword': keyword,
             },
             beforeSend: function () {
@@ -66,9 +67,22 @@
                 $("#spinner").addClass('visually-hidden');
             },
             success: function (response) {
-                let outputhtml = ''
-
                 console.log(response)
+                const data = response.queryset
+                if (Array.isArray(data)) {
+
+                    searchquery.innerHTML = " "
+                    data.forEach(keyword => {
+                        searchquery.innerHTML +=
+                            `<li class="mb-2 search-obj pt-3 pb-3 px-4"><a class="text-black" href="${keyword.url}" style="text-decoration:none;"><b>${keyword.title}</b></a></li> `
+                    })
+                } else {
+                    if (searchinput.value.length > 0) {
+                        searchquery.innerHTML = `<p  class="text-black pt-3 pb-3 px-4">${data}</p> `
+                    } else {
+                        searchquery.classList.add("invisible");
+                    }
+                }
             },
             error: function (error) {
                 console.log(error.data)
@@ -78,19 +92,20 @@
         })
     }
 
+
     const searchform = document.getElementById("search-form")
     const searchinput = document.getElementById("search-input")
     const searchquery = document.getElementById("search-query")
 
     const csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value
+    console.log(csrf_token)
     searchinput.addEventListener("keyup", e => {
-        // console.log("printing", e.target.value)
+        console.log("printing", e.target.value)
         if (searchquery.classList.contains('invisible')) {
             searchquery.classList.remove('invisible')
         }
         sendSearchData(e.target.value);
     })
-
 
 
     /*--------------------
@@ -148,17 +163,17 @@
     /*--------------------
     SHOW PRODUCT DETAIL VIEW
     ----------------------*/
-    const modalDetailContainer = document.getElementById('modal-detail-container')
     const modalBtns = [...document.getElementsByClassName('product-modal-btn')] //Array
     const imgGalleryDiv = document.getElementById('img-gallery')
     const wrapSlickDiv = document.getElementById('featured')
     const prodcut_title = document.getElementById('product-title')
 
     modalBtns.forEach((modalELement) => modalELement.addEventListener('click', () => {
+        console.log('hello')
         const prod_code = modalELement.getAttribute('prod-code')
         const prod_id = modalELement.getAttribute('prod-id')
 
-        const url = "product_json_view/";
+        const url = "{% url 'Clothes:product-json-view' %}";
         const data = {
             "prod_id": prod_id,
             "prod_code": prod_code

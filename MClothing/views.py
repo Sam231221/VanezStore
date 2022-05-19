@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, View
 from .models import Color, Product, Category, Customer, Size, ProductReview
 from django.template.loader import render_to_string
 from .forms import ReviewAddForm
-
+from django.contrib.auth.models import User
 class StoreView(View):
     def get(self, request):
         
@@ -28,14 +28,16 @@ class ProductDetailView(View):
     def get(self, request,slug):
         product=Product.products.filter(slug=slug).first()
         reviewForm=ReviewAddForm()
-
-        # Check
         canAdd=True
-        customer_obj = Customer.objects.get(name=str(request.user))
-        reviewCheck=ProductReview.objects.filter(user=customer_obj,product=product).count()
         if request.user.is_authenticated:
+            
+            user_obj = User.objects.get(username=str(request.user))
+            reviewCheck=ProductReview.objects.filter(user=user_obj,product=product).count()
+            
             if reviewCheck > 0:
                 canAdd=False
+        else:
+            canAdd=True
 
         reviews=ProductReview.objects.filter(product=product)
         avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
@@ -54,6 +56,7 @@ class ProductJsonView(View):
         prod_id = data['prod_id']
         prod_code = data['prod_code']
         prod_obj = Product.objects.get(id=prod_id, product_code=prod_code)#type class
+        print(prod_obj)
         images =  prod_obj.imagealbum_set.all()
 
         products_dict = {
@@ -72,14 +75,14 @@ class ProductJsonView(View):
 class ProductReviewJsonView(View):
     def post(self,request,pid):
         product=Product.products.get(pk=pid)
-        customer_obj = Customer.objects.get(name=str(request.user))
+        user_obj = User.objects.get(username=str(request.user))
         ProductReview.objects.create(
-            user=customer_obj,
+            user=user_obj,
             product=product,
             review_text=request.POST['review_text'],
             review_rating=request.POST['review_rating'],)
         data={
-            'user':customer_obj.name,
+            'user':user_obj.username,
             'review_text':request.POST['review_text'],
             'review_rating':request.POST['review_rating']
         }
@@ -95,11 +98,12 @@ class ProductFilterJsonView(View):
         sizes = request.GET.getlist('size[]')
         print('sizes:', len(sizes))
         categories = request.GET.getlist('category[]')
+        print(categories, sizes, colors)
         minPrice = request.GET['minPrice']
         maxPrice = request.GET['maxPrice']
 
         product_queryset = Product.products.filter(price__gte=minPrice, price__lte=maxPrice).order_by("?")
-        print('QuerySet:',product_queryset)
+        print('\n BeforeQuerySet:',product_queryset)
 
         if len(colors) >0:
             #one product can contain more than one colour so use distinct() for single unique obj.
@@ -109,8 +113,9 @@ class ProductFilterJsonView(View):
             product_queryset=product_queryset.filter(category__id__in=categories).distinct()
        
         if len(sizes)>0:
-            product_queryset=product_queryset.filter(size__id__in=sizes).distinct()        
-        
+            product_queryset=product_queryset.filter(size__id__in=sizes).distinct() 
+
+        print('\n After QuerySet:',product_queryset)
         html = render_to_string('utilities/productsbyfilter.html',{'products':product_queryset})
         return JsonResponse({'products': html})
     

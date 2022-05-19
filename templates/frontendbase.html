@@ -23,9 +23,9 @@
 
 
         <!--Recent Products-->
-        <div class="row isotope-grid">
+        <div class="row gx-3 isotope-grid">
             {% for i in recentproducts %}
-            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women shadow-sm">
                 <div class="block2">
                     <div class="block2-pic hov-img0">
                         <img class="img-fluid shadow" src="{{i.thumbnail}}" alt="IMG-PRODUCT">
@@ -77,9 +77,9 @@
 
 
         <!--Featured Products-->
-        <div class="row isotope-grid">
+        <div class="row isotope-grid gx-3">
             {% for i in featuredproducts %}
-            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 shadow-sm isotope-item women">
                 <div class="block2">
                     <div class="block2-pic hov-img0">
                         <img class="img-fluid shadow" src="{{i.thumbnail}}" alt="IMG-PRODUCT">
@@ -133,5 +133,9 @@
 
 <!--Product Modal Detail-->
 {% include 'utilities/product-modal-detail.html' %}
+
+{% endblock %}
+
+{% block script %}
 
 {% endblock %}
