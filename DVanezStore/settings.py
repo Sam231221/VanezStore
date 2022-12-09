@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-*7vnz0p_b9=vjc6!w97*20=shvy$#klz2k+=+51y_7+l8!^&57
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['vanezstore.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['vanezstore.up.railway.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -129,3 +129,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 #For some reasson this doesn't work
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CSRF_TRUSTED_ORIGINS = [
+    'https://vanezstore.up.railway.app',
+]
