@@ -7,10 +7,14 @@ from .models import Color, Product, Category, Customer, Size, ProductReview
 from django.template.loader import render_to_string
 from .forms import ReviewAddForm
 from django.contrib.auth.models import User
+
 class StoreView(View):
     def get(self, request):
         
-        category_queryset = Category.objects.all()
+        category_queryset = list(Category.objects.values())
+        for category in category_queryset:
+            print(category)
+            category['product_count'] = Product.objects.filter(category=Category.objects.filter(name=category['name']).first()).count()
         product_queryset = Product.products.all().order_by('?')[:6]
             
         context={

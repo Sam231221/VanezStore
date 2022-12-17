@@ -95,8 +95,8 @@
 					<label for="s_sm" class="d-flex">
 						<input data-filter="category" value="{{i.id}}" class="filter-checkbox mr-2 mt-1"
 							type="checkbox">
-						<span class="text-black">{{i}}
-							(2,319)</span>
+						<span class="text-black ms-2">{{i.name}}
+							({{i.product_count}})</span>
 					</label>
 					{% endfor %}
 
@@ -134,7 +134,7 @@
 						<label for="s_sm" class="d-flex">
 							<input data-filter="size" value="{{i.id}}" class="filter-checkbox mr-2 mt-1"
 								type="checkbox">
-							<span class="text-black">{{i}}
+							<span class="text-black ms-2">{{i}}
 								(2,319)</span>
 						</label>
 						{% endfor %}
@@ -149,7 +149,7 @@
 						<label for="s_sm" class="d-flex">
 							<input data-filter="color" value="{{i.id}}" class="filter-checkbox mr-2 mt-1"
 								type="checkbox">
-							<span class="text-black">{{i}}
+							<span class="text-black ms-2">{{i}}
 								(2,319)</span>
 						</label>
 						{% endfor %}

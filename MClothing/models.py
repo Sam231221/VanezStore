@@ -25,7 +25,7 @@ class Category(models.Model):
         return reverse('store:category_list', args=[self.slug])
 
     def __str__(self):
-        return self.name
+        return str(self.name)
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

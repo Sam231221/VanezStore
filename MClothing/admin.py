@@ -12,6 +12,7 @@ class ImageAlbumAdmin(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display =['image','title','price','category','size', 'color','is_featured','published_on','product_code']
     list_editable = ['price']
+    list_filter = ['category']
     exclude = ('slug',)
     inlines = [ImageAlbumAdmin]   
     extra = 5
